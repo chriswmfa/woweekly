@@ -1,30 +1,64 @@
+<!-- src/App.vue -->
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <Layout />
 </template>
 
+<script lang="ts" setup>
+// Import the Layout component
+import Layout from '@/components/MainLayout.vue'
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+/* Global styles with higher specificity */
+html, body {
+  font-family: 'Nunito', sans-serif !important;
 }
 
-nav {
-  padding: 30px;
+/* Target Vuetify components specifically */
+.v-application {
+  font-family: 'Nunito', sans-serif !important;
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.v-application [class*='text-'] {
+  font-family: 'Nunito', sans-serif !important;
 }
 
-nav a.router-link-exact-active {
-  color: #42b983;
+/* Keep headings in Cinzel with maximum specificity */
+.v-application h1,
+.v-application h2,
+.v-application h3,
+.v-application h4,
+.v-application h5,
+.v-application h6,
+.v-application .text-h1,
+.v-application .text-h2,
+.v-application .text-h3,
+.v-application .text-h4,
+.v-application .text-h5,
+.v-application .text-h6,
+.v-card-title.text-h1,
+.v-card-title.text-h2,
+.v-card-title.text-h3,
+.v-card-title.text-h4,
+.v-card-title.text-h5,
+.v-card-title.text-h6 {
+  font-family: 'Cinzel', serif !important;
+  letter-spacing: 0.5px;
+}
+
+/* Add specific font for text body classes */
+.text-body-1, .text-body-2,
+.text-subtitle-1, .text-subtitle-2 {
+  font-family: 'Nunito', sans-serif !important;
+}
+
+/* Ensure font-weight is preserved for Cinzel */
+.font-weight-bold.text-h1,
+.font-weight-bold.text-h2,
+.font-weight-bold.text-h3,
+.font-weight-bold.text-h4,
+.font-weight-bold.text-h5,
+.font-weight-bold.text-h6 {
+  font-family: 'Cinzel', serif !important;
 }
 </style>
