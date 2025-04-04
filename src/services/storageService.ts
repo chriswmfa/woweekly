@@ -11,7 +11,6 @@ const CUSTOM_TASKS_KEY = 'wow-custom-tasks'
  */
 interface CustomTasksStorage {
   [expansionKey: string]: {
-    daily: Task[],
     weekly: Task[]
   }
 }
