@@ -1,23 +1,30 @@
 <template>
   <v-card class="mt-4 mb-4" elevation="3" color="surface">
-    <v-card-title class="pb-0">
-      <v-icon color="secondary" class="mr-2">mdi-filter-variant</v-icon>
-      <span class="text-subtitle-1 font-weight-medium">Filter by Task Type</span>
-    </v-card-title>
     <v-card-text>
-      <v-row dense>
-        <v-col v-for="type in allTaskTypes" :key="type" cols="auto">
-          <v-chip
-            :color="enabledTaskTypes.includes(type) ? getTaskTypeColor(type) : ''"
-            @click="toggleTaskType(type)"
-            class="ma-1"
-            filter
-            variant="elevated"
-            :filter-icon="enabledTaskTypes.includes(type) ? 'mdi-check' : ''"
-          >
-            <v-icon size="small" class="mr-1">{{ getTaskTypeIcon(type) }}</v-icon>
-            {{ type.charAt(0).toUpperCase() + type.slice(1) }}
-          </v-chip>
+      <v-row align="center">
+        <v-col cols="auto" class="pr-0">
+          <div class="d-flex align-center">
+            <v-icon color="secondary" class="mr-2">mdi-filter-variant</v-icon>
+            <span class="text-subtitle-1 font-weight-medium">Filter by Task Type</span>
+          </div>
+        </v-col>
+        <v-col>
+          <v-row dense>
+            <v-col v-for="type in allTaskTypes" :key="type" cols="auto">
+              <v-chip
+                :color="enabledTaskTypes.includes(type) ? getTaskTypeColor(type) : ''"
+                @click="toggleTaskType(type)"
+                class="ma-1"
+                filter
+                size="small"
+                variant="elevated"
+                :filter-icon="enabledTaskTypes.includes(type) ? 'mdi-check' : ''"
+              >
+                <v-icon size="small" class="mr-1">{{ getTaskTypeIcon(type) }}</v-icon>
+                {{ type.charAt(0).toUpperCase() + type.slice(1) }}
+              </v-chip>
+            </v-col>
+          </v-row>
         </v-col>
       </v-row>
     </v-card-text>
@@ -61,6 +68,7 @@ const getTaskTypeIcon = (type: string): string => {
     dungeon: 'mdi-sword-cross',
     raid: 'mdi-shield',
     pvp: 'mdi-sword',
+    delve: 'mdi-pickaxe',
     reputation: 'mdi-handshake',
     collection: 'mdi-treasure-chest',
     crafting: 'mdi-anvil',

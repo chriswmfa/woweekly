@@ -55,12 +55,15 @@
         <router-view></router-view>
       </v-container>
     </v-main>
+    <!-- Add Snackbar Component -->
+    <SnackbarNotification />
   </v-app>
 </template>
 
 <script lang="ts" setup>
 // Import necessary Vue and Vuetify features
 import { ref } from 'vue'
+import SnackbarNotification from '@/components/SnackbarNotification.vue'
 
 // State for controlling drawer and mini-variant mode
 const drawer = ref(true)

@@ -27,6 +27,11 @@
           <v-row justify="start" class="mb-4">
             <!-- Weekly Task List -->
             <v-col cols="12">
+              <!-- Completion Banner -->
+              <task-completion-banner
+                :weekly-completion="getWeeklyCompletion(key)"
+                :expansion-name="tasksData.expansions[key].name"
+              />
               <task-list
                 :tasks="getFilteredTasks(key, 'weekly')"
                 type="weekly"
@@ -74,12 +79,14 @@
 import { ref, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import type { TasksData, Task } from '@/types/tasks'
+import { Expansion } from '@/types/tasks'
 
 // Import components
 import ExpansionTabs from '@/components/tasks/ExpansionTabs.vue'
 import TaskTypeFilters from '@/components/tasks/TaskTypeFilters.vue'
 import TaskProgress from '@/components/tasks/TaskProgress.vue'
 import TaskList from '@/components/tasks/TaskList.vue'
+import TaskCompletionBanner from '@/components/tasks/TaskCompletionBanner.vue'
 
 // Setup Vuex store
 const store = useStore()

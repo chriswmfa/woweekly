@@ -59,23 +59,22 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { Expansion, ExpansionData } from '@/types/tasks'
 
-// Simplified features data - only the most important ones
-
-// Expansions data with availability status
+// Create expansions array using the ExpansionData object
 const expansions = ref([
-  { name: 'The War Within', color: 'surface-variant', available: true },
-  { name: 'Dragonflight', color: 'surface-variant', available: false },
-  { name: 'Shadowlands', color: 'surface-variant', available: false },
-  { name: 'Battle for Azeroth', color: 'surface-variant', available: false },
-  { name: 'Legion', color: 'surface-variant', available: false },
-  { name: 'Warlords of Draenor', color: 'surface-variant', available: false },
-  { name: 'Mists of Pandaria', color: 'surface-variant', available: false },
-  { name: 'Cataclysm', color: 'surface-variant', available: false },
-  { name: 'Wrath of the Lich King', color: 'surface-variant', available: false },
-  { name: 'The Burning Crusade', color: 'surface-variant', available: false }
+  { ...ExpansionData.tww, available: true },
+  { ...ExpansionData.df, available: false },
+  { ...ExpansionData.sl, available: false },
+  { ...ExpansionData.bfa, available: false },
+  { ...ExpansionData.legion, available: false },
+  { ...ExpansionData.wod, available: false },
+  { ...ExpansionData.mop, available: false },
+  { ...ExpansionData.cata, available: false },
+  { ...ExpansionData.wotlk, available: false },
+  { ...ExpansionData.tbc, available: false },
+  { ...ExpansionData.classic, available: false }
 ])
-
 </script>
 
 <style scoped>
