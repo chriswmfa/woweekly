@@ -69,9 +69,9 @@
     <v-card class="task-card" elevation="3" color="surface">
       <v-card-title>
         <v-icon :color="type === 'weekly' ? 'primary' : 'success'" class="mr-2">
-          {{ type === 'weekly' ? 'mdi-calendar-week' : 'mdi-calendar-today' }}
+          mdi-calendar-week
         </v-icon>
-        {{ type === 'weekly' ? 'Weekly Task List' : 'Daily Task List' }}
+        Weekly Task List
       </v-card-title>
       <v-divider class="border-opacity-15"></v-divider>
       <v-card-text>
@@ -106,9 +106,9 @@ const props = defineProps({
     required: true
   },
   type: {
-    type: String as PropType<'daily' | 'weekly'>,
+    type: String as PropType<'weekly'>,
     required: true,
-    validator: (value: string) => ['daily', 'weekly'].includes(value)
+    validator: (value: string) => ['weekly'].includes(value)
   },
   enabledTaskTypes: {
     type: Array as PropType<string[]>,
@@ -135,8 +135,6 @@ const taskTypes = [
   { text: 'Checkbox', value: 'checkbox' },
   { text: 'Countable', value: 'countable' }
 ]
-
-// Remove taskCategories array since we're using tags instead
 
 const availableTags = Object.entries(TaskTag).map(([key, value]) => ({
   text: value,
@@ -168,21 +166,19 @@ const resetNewTask = () => {
 
 const addTask = () => {
   if (!newTask.value.title || !newTask.value.type || newTask.value.tags.length === 0) {
-    return // Require at least one tag instead of task category
+    return
   }
 
-  // Use the first tag as the task type (for categorization purposes)
   const primaryTag = typeof newTask.value.tags[0] === 'object'
     ? newTask.value.tags[0].value
     : newTask.value.tags[0]
 
-  // Create a proper Task object with all required properties
   const taskToAdd: Task = {
-    id: uuidv4(), // Generate a unique ID
+    id: uuidv4(),
     name: newTask.value.title,
     subtitle: newTask.value.subtitle || '',
-    type: primaryTag, // Use first tag as the type for filtering
-    icon: 'mdi-check-circle', // Default icon
+    type: primaryTag,
+    icon: 'mdi-check-circle',
     completed: false,
     isCountable: newTask.value.type === 'countable',
     currentCount: newTask.value.type === 'countable' ? 0 : undefined,
@@ -190,23 +186,19 @@ const addTask = () => {
     tags: newTask.value.tags.map(tag => typeof tag === 'object' ? tag.value : tag)
   }
 
-  // Add the task to the list and emit it to the parent component
   emit('update:tasks', taskToAdd)
 
   closeAddTaskDialog()
 }
 
-// Filter tasks based on enabled task types
 const filteredTasks = computed(() => {
   return props.tasks.filter(task => props.enabledTaskTypes.includes(task.type))
 })
 
-// Update a specific task
 const updateTask = (updatedTask: Task) => {
   emit('update:tasks', updatedTask)
 }
 
-// Delete a task
 const deleteTask = (taskId: string) => {
   emit('delete:task', taskId)
 }

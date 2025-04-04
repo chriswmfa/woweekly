@@ -17,7 +17,7 @@
           <v-card-text class="pa-6">
             <p class="text-body-1 mb-4">
               Weekly WoW Tasks is a task tracking application designed to help World of Warcraft players keep
-              track of their daily and weekly activities across all expansions. Never miss an important task again!
+              track of their weekly activities across all expansions. Never miss an important task again!
             </p>
 
             <v-divider class="my-6"></v-divider>
@@ -111,7 +111,7 @@ import { ref } from 'vue'
 const features = ref([
   {
     title: 'Task Tracking',
-    description: 'Track daily and weekly tasks across all expansions',
+    description: 'Track weekly tasks across all expansions',
     icon: 'mdi-checkbox-marked-circle-outline',
     color: 'primary'
   },

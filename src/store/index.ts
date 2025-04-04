@@ -8,7 +8,6 @@ interface State {
   savedProgress: SavedTasksState | null,
   customTasks: {
     [expansionKey: string]: {
-      daily: Task[],
       weekly: Task[]
     }
   } | null
@@ -31,17 +30,8 @@ export default createStore<State>({
           if (!result[expansionKey]) {
             result[expansionKey] = {
               name: expansionKey,
-              daily: [],
               weekly: []
             }
-          }
-
-          // Add custom daily tasks
-          if (state.customTasks?.[expansionKey]?.daily?.length) {
-            result[expansionKey].daily = [
-              ...result[expansionKey].daily,
-              ...state.customTasks[expansionKey].daily
-            ]
           }
 
           // Add custom weekly tasks
@@ -58,7 +48,7 @@ export default createStore<State>({
     },
 
     // Get tasks with their saved progress applied
-    getTasksWithProgress: (state, getters) => (expansionKey: string, taskType: 'daily' | 'weekly') => {
+    getTasksWithProgress: (state, getters) => (expansionKey: string, taskType: 'weekly') => {
       // Get tasks including custom tasks
       const expansions = getters.getExpansions
       const tasks = expansions[expansionKey]?.[taskType] || []
@@ -67,20 +57,26 @@ export default createStore<State>({
         return tasks
       }
 
-      // Apply saved progress to each task
-      return tasks.map((task: Task) => {
-        const savedTask = state.savedProgress?.[task.id]
-        if (!savedTask) {
-          return task
-        }
+      // Filter out deleted tasks and apply saved progress to each remaining task
+      return tasks
+        .filter((task: Task) => {
+          const savedTask = state.savedProgress?.[task.id]
+          // Skip tasks that are marked as deleted
+          return !savedTask?.deleted
+        })
+        .map((task: Task) => {
+          const savedTask = state.savedProgress?.[task.id]
+          if (!savedTask) {
+            return task
+          }
 
-        return {
-          ...task,
-          completed: savedTask.completed,
-          currentCount: task.isCountable ? (savedTask.currentCount || 0) : undefined,
-          notes: savedTask.notes || ''
-        }
-      })
+          return {
+            ...task,
+            completed: savedTask.completed,
+            currentCount: task.isCountable ? (savedTask.currentCount || 0) : undefined,
+            notes: savedTask.notes || ''
+          }
+        })
     }
   },
   mutations: {
@@ -120,7 +116,7 @@ export default createStore<State>({
     },
 
     // Add a new mutation for adding custom tasks
-    ADD_CUSTOM_TASK (state, task: Task & { expansionKey: string, taskType: 'daily' | 'weekly' }) {
+    ADD_CUSTOM_TASK (state, task: Task & { expansionKey: string, taskType: 'weekly' }) {
       // Initialize custom tasks if needed
       if (!state.customTasks) {
         state.customTasks = {}
@@ -129,13 +125,12 @@ export default createStore<State>({
       // Create expansion structure if it doesn't exist
       if (!state.customTasks[task.expansionKey]) {
         state.customTasks[task.expansionKey] = {
-          daily: [],
           weekly: []
         }
       }
 
       // Add the custom task to the appropriate expansion and task type
-      if ((task.taskType === 'daily' || task.taskType === 'weekly')) {
+      if (task.taskType === 'weekly') {
         // Remove the extra properties before adding to the task list
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { expansionKey, taskType, ...cleanTask } = task
@@ -156,7 +151,12 @@ export default createStore<State>({
 
         // Save to localStorage
         StorageService.saveTasksState(state.savedProgress)
-        StorageService.saveCustomTasks(state.customTasks)
+        StorageService.saveCustomTasks({
+          ...state.customTasks,
+          [task.expansionKey]: {
+            weekly: state.customTasks?.[task.expansionKey]?.weekly || []
+          }
+        })
       }
     },
 
@@ -169,7 +169,7 @@ export default createStore<State>({
 
       if (state.customTasks && state.customTasks[expansionKey]) {
         // Try to delete from custom tasks
-        const taskTypes = ['daily', 'weekly'] as const
+        const taskTypes = ['weekly'] as const
 
         taskTypes.forEach((taskType) => {
           if (state.customTasks?.[expansionKey]?.[taskType]) {
@@ -186,12 +186,43 @@ export default createStore<State>({
 
         // Save updated custom tasks if a deletion occurred
         if (deleted) {
-          StorageService.saveCustomTasks(state.customTasks)
+          StorageService.saveCustomTasks(
+            Object.fromEntries(
+              Object.entries(state.customTasks || {}).map(([key, value]) => [
+                key, { weekly: value.weekly || [] }
+              ])
+            )
+          )
         }
       }
 
-      // Also remove the task's saved state
-      if (state.savedProgress && state.savedProgress[taskId]) {
+      // For predefined tasks, we can't remove them from the original data
+      // but we can mark them as deleted in the saved progress
+      if (!deleted && state.tasksData.expansions[expansionKey]) {
+        const predefinedTask = state.tasksData.expansions[expansionKey].weekly.find(
+          (task) => task.id === taskId
+        )
+
+        if (predefinedTask) {
+          // Mark the task as hidden/deleted in saved progress
+          if (!state.savedProgress) {
+            state.savedProgress = {}
+          }
+
+          // Use a special property to mark as deleted
+          state.savedProgress[taskId] = {
+            completed: false,
+            deleted: true
+          }
+
+          // Save to localStorage
+          StorageService.saveTasksState(state.savedProgress)
+          deleted = true
+        }
+      }
+
+      // Also remove the task's saved state if it wasn't marked as deleted
+      if (!deleted && state.savedProgress && state.savedProgress[taskId]) {
         delete state.savedProgress[taskId]
         // Save the updated state to localStorage
         StorageService.saveTasksState(state.savedProgress)

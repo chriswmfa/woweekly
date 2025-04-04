@@ -21,29 +21,15 @@
             :weekly-completion="getWeeklyCompletion(key)"
             :weekly-completed="getCompletedTasksCount(key, 'weekly')"
             :weekly-total="getVisibleTasksCount(key, 'weekly')"
-            :daily-completion="getDailyCompletion(key)"
-            :daily-completed="getCompletedTasksCount(key, 'daily')"
-            :daily-total="getVisibleTasksCount(key, 'daily')"
           />
 
           <!-- Tasks Section -->
           <v-row justify="start" class="mb-4">
             <!-- Weekly Task List -->
-            <v-col cols="12" md="6">
+            <v-col cols="12">
               <task-list
                 :tasks="getFilteredTasks(key, 'weekly')"
                 type="weekly"
-                :enabled-task-types="enabledTaskTypes"
-                @update:tasks="updateTasks($event)"
-                @delete:task="deleteTask($event)"
-              />
-            </v-col>
-
-            <!-- Daily Task List -->
-            <v-col cols="12" md="6">
-              <task-list
-                :tasks="getFilteredTasks(key, 'daily')"
-                type="daily"
                 :enabled-task-types="enabledTaskTypes"
                 @update:tasks="updateTasks($event)"
                 @delete:task="deleteTask($event)"
@@ -114,7 +100,6 @@ const allTaskTypes = computed(() => {
   const types = new Set<string>()
 
   Object.values(tasksData.value.expansions).forEach(expansion => {
-    expansion.daily.forEach(task => types.add(task.type))
     expansion.weekly.forEach(task => types.add(task.type))
   })
 
@@ -132,7 +117,7 @@ onMounted(() => {
 })
 
 // Get filtered tasks for an expansion and type
-const getFilteredTasks = (expansionKey: string | number, taskType: 'daily' | 'weekly') => {
+const getFilteredTasks = (expansionKey: string | number, taskType: 'weekly') => {
   // Get tasks with saved progress applied from store
   const key = String(expansionKey)
   const tasks = store.getters.getTasksWithProgress(key, taskType)
@@ -143,7 +128,7 @@ const getFilteredTasks = (expansionKey: string | number, taskType: 'daily' | 'we
 // Update a task in the store or add a new custom task
 const updateTasks = (task: Task) => {
   // Get current tasks to check if the task exists
-  const currentTasks = tasksData.value.expansions[currentExpansion.value][task.type === 'weekly' ? 'weekly' : 'daily']
+  const currentTasks = tasksData.value.expansions[currentExpansion.value].weekly
   // If it's an existing task being updated
   if (currentTasks.some(t => t.id === task.id)) {
     store.dispatch('updateTask', {
@@ -158,7 +143,7 @@ const updateTasks = (task: Task) => {
     const customTask = {
       ...task,
       expansionKey: currentExpansion.value,
-      taskType: task.type === 'weekly' ? 'weekly' : 'daily'
+      taskType: 'weekly'
     }
     // Dispatch action to add custom task
     store.dispatch('addCustomTask', customTask)
@@ -174,13 +159,13 @@ const deleteTask = (taskId: string) => {
 }
 
 // Helper function for getting task counts that respects filters
-const getVisibleTasksCount = (expansionKey: string | number, taskType: 'daily' | 'weekly') => {
+const getVisibleTasksCount = (expansionKey: string | number, taskType: 'weekly') => {
   const key = String(expansionKey)
   const tasks = store.getters.getTasksWithProgress(key, taskType)
   return tasks.filter((task: Task) => enabledTaskTypes.value.includes(task.type)).length
 }
 
-const getCompletedTasksCount = (expansionKey: string | number, taskType: 'daily' | 'weekly') => {
+const getCompletedTasksCount = (expansionKey: string | number, taskType: 'weekly') => {
   const key = String(expansionKey)
   const tasks = store.getters.getTasksWithProgress(key, taskType)
   return tasks.filter((task: Task) =>
@@ -195,14 +180,6 @@ const isTaskCompleted = (task: Task) => {
     return task.currentCount >= task.targetCount
   }
   return task.completed
-}
-
-const getDailyCompletion = (expansionKey: string | number) => {
-  const key = String(expansionKey)
-  const tasks = store.getters.getTasksWithProgress(key, 'daily')
-  const filteredTasks = tasks.filter((task: Task) => enabledTaskTypes.value.includes(task.type))
-  const completed = filteredTasks.filter((t: Task) => isTaskCompleted(t)).length
-  return filteredTasks.length > 0 ? (completed / filteredTasks.length) * 100 : 0
 }
 
 const getWeeklyCompletion = (expansionKey: string | number) => {

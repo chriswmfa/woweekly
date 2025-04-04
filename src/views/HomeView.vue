@@ -16,7 +16,7 @@
             </div>
           </v-img>
           <v-card-text class="py-4 text-center">
-            <p class="text-body-1">Manage your daily and weekly tasks across all World of Warcraft expansions</p>
+            <p class="text-body-1">Manage your weekly tasks across all World of Warcraft expansions</p>
             <v-btn
               color="primary"
               class="mt-4"

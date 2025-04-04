@@ -4,11 +4,18 @@ export const enum Expansion {
   bfa = 'Battle for Azeroth',
 }
 
+export const enum TaskTag {
+  reputation = 'Reputation',
+  cofferKeys = 'Coffer Keys',
+  veteranGear = 'Veteran Gear',
+  pinnacleChest = 'Pinnacle Chest'
+}
 export interface Task {
   id: string;
   name: string;
   subtitle: string;
   type: string;
+  tags: TaskTag[];
   icon: string;
   completed: boolean;
   isCountable?: boolean; // Whether this task has multiple steps to complete (e.g. "Complete 3 Delves")
@@ -19,14 +26,13 @@ export interface Task {
 
 export interface ExpansionData {
   name: string;
-  daily: Task[];
   weekly: Task[];
 }
 
 export interface TasksData {
   expansions: {
     [key: string]: ExpansionData;
-  }
+  };
 }
 
 // Define the structure of the saved task state
@@ -34,6 +40,7 @@ export interface SavedTaskState {
   completed: boolean;
   currentCount?: number;
   notes?: string; // User's notes for this task
+  deleted?: boolean; // Flag to indicate if this task has been deleted/hidden
 }
 
 // Define the structure of all saved task states
@@ -41,9 +48,11 @@ export interface SavedTasksState {
   [taskId: string]: SavedTaskState;
 }
 
-export const enum TaskTag {
-  reputation = 'Reputation',
-  cofferKeys = 'Coffer Keys',
-  veteranGear = 'Veteran Gear',
-  pinnacleChest = 'Pinnacle Chest'
+/**
+ * Interface for custom tasks storage
+ */
+export interface CustomTasksStorage {
+  [expansionKey: string]: {
+    weekly: Task[];
+  };
 }
