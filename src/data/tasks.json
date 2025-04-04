@@ -1,0 +1,184 @@
+{
+  "expansions": {
+    "tww": {
+      "name": "The War Within",
+      "daily": [
+        {
+          "id": "tww_daily_1",
+          "name": "Theatre Troupe",
+          "subtitle": "Complete once per week",
+          "type": "quest",
+          "tags": ["reputation", "cofferKeys", "veteranGear", "pinnacleChest"],
+          "icon": "mdi-map-marker",
+          "completed": false
+        },
+        {
+          "id": "tww_daily_2",
+          "name": "Daily Task 2",
+          "subtitle": "Collect required materials",
+          "type": "crafting",
+          "icon": "mdi-pickaxe",
+          "completed": false
+        },
+        {
+          "id": "tww_daily_3",
+          "name": "Daily Task 3",
+          "subtitle": "Explore the new zone",
+          "type": "activity",
+          "icon": "mdi-terrain",
+          "completed": false
+        },
+        {
+          "id": "tww_daily_4",
+          "name": "Daily Task 4",
+          "subtitle": "Earn faction reputation",
+          "type": "reputation",
+          "icon": "mdi-handshake",
+          "completed": false
+        },
+        {
+          "id": "tww_daily_5",
+          "name": "Daily Task 5",
+          "subtitle": "Craft required items",
+          "type": "profession",
+          "icon": "mdi-anvil",
+          "completed": false
+        },
+        {
+          "id": "tww_daily_6",
+          "name": "Daily Task 6",
+          "subtitle": "Win PvP encounters",
+          "type": "pvp",
+          "icon": "mdi-sword",
+          "completed": false
+        },
+        {
+          "id": "tww_daily_7",
+          "name": "Daily Task 7",
+          "subtitle": "Complete required activities",
+          "type": "activity",
+          "icon": "mdi-run",
+          "completed": false,
+          "isCountable": true,
+          "currentCount": 0,
+          "targetCount": 3
+        },
+        {
+          "id": "tww_daily_8",
+          "name": "Bountiful Delves",
+          "subtitle": "Complete 4 Bountiful Delves",
+          "type": "collection",
+          "icon": "mdi-treasure-chest",
+          "completed": false,
+          "isCountable": true,
+          "currentCount": 0,
+          "targetCount": 4
+        },
+        {
+          "id": "tww_daily_9",
+          "name": "Daily Task 9",
+          "subtitle": "Complete daily quests",
+          "type": "quest",
+          "icon": "mdi-clipboard-text",
+          "completed": false
+        },
+        {
+          "id": "tww_daily_10",
+          "name": "Daily Task 10",
+          "subtitle": "Defeat daily bosses",
+          "type": "dungeon",
+          "icon": "mdi-skull",
+          "completed": false
+        }
+      ],
+      "weekly": [
+        {
+          "id": "tww_weekly_1",
+          "name": "Weekly Task 1",
+          "subtitle": "Complete the raid",
+          "type": "raid",
+          "icon": "mdi-shield",
+          "completed": false
+        },
+        {
+          "id": "tww_weekly_2",
+          "name": "Weekly Task 2",
+          "subtitle": "Complete a challenging dungeon",
+          "type": "dungeon",
+          "icon": "mdi-key-variant",
+          "completed": false
+        },
+        {
+          "id": "tww_weekly_3",
+          "name": "Weekly Task 3",
+          "subtitle": "Earn PvP rewards",
+          "type": "pvp",
+          "icon": "mdi-trophy",
+          "completed": false
+        },
+        {
+          "id": "tww_weekly_4",
+          "name": "Weekly Task 4",
+          "subtitle": "Complete required quests",
+          "type": "quest",
+          "icon": "mdi-book-open-variant",
+          "completed": false
+        },
+        {
+          "id": "tww_weekly_5",
+          "name": "Weekly Task 5",
+          "subtitle": "Earn reputation with factions",
+          "type": "reputation",
+          "icon": "mdi-account-group",
+          "completed": false
+        },
+        {
+          "id": "tww_weekly_6",
+          "name": "Weekly Task 6",
+          "subtitle": "Complete special activities",
+          "type": "activity",
+          "icon": "mdi-star",
+          "completed": false
+        },
+        {
+          "id": "tww_weekly_7",
+          "name": "Weekly Task 7",
+          "subtitle": "Collect special items",
+          "type": "collection",
+          "icon": "mdi-package-variant-closed",
+          "completed": false
+        },
+        {
+          "id": "tww_weekly_8",
+          "name": "Weekly Task 8",
+          "subtitle": "Craft special items",
+          "type": "profession",
+          "icon": "mdi-hammer",
+          "completed": false
+        },
+        {
+          "id": "tww_weekly_9",
+          "name": "Weekly Task 9",
+          "subtitle": "Complete multiple dungeons",
+          "type": "dungeon",
+          "icon": "mdi-gate",
+          "completed": false,
+          "isCountable": true,
+          "currentCount": 0,
+          "targetCount": 4
+        },
+        {
+          "id": "tww_weekly_10",
+          "name": "Weekly Task 10",
+          "subtitle": "Defeat world bosses",
+          "type": "raid",
+          "icon": "mdi-dragon",
+          "completed": false,
+          "isCountable": true,
+          "currentCount": 0,
+          "targetCount": 2
+        }
+      ]
+    }
+  }
+}
