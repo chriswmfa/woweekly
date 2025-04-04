@@ -5,90 +5,61 @@
       "weekly": [
         {
           "id": "tww_weekly_1",
-          "name": "Weekly Task 1",
-          "subtitle": "Complete the raid",
+          "name": "Liberation of Undermine",
+          "subtitle": "Complete the raid on your preferred difficulty.",
           "type": "raid",
-          "tags": ["reputation"],
-          "icon": "mdi-shield",
+          "tags": ["reputation", "loot"],
           "completed": false
         },
         {
           "id": "tww_weekly_2",
-          "name": "Weekly Task 2",
-          "subtitle": "Complete a challenging dungeon",
-          "type": "dungeon",
-          "icon": "mdi-key-variant",
-          "completed": false
+          "name": "Complete 3 Delves",
+          "subtitle": "Complete 3 delves on at least tier 8 or above - Note that tier 11 delves provide gilded crests 3 times per week.",
+          "type": "delve",
+          "completed": false,
+          "isCountable": true,
+          "currentCount": 0,
+          "targetCount": 3
         },
         {
           "id": "tww_weekly_3",
-          "name": "Weekly Task 3",
-          "subtitle": "Earn PvP rewards",
-          "type": "pvp",
+          "name": "Many Jobs, Handle It!",
+          "subtitle": "Complete 10 jobs for Shipping & Handling.",
+          "type": "quest",
           "icon": "mdi-trophy",
           "completed": false
         },
         {
           "id": "tww_weekly_4",
-          "name": "Weekly Task 4",
-          "subtitle": "Complete required quests",
+          "name": "Urge to Surge",
+          "subtitle": "Participate in a Surge Pricing event.",
           "type": "quest",
           "icon": "mdi-book-open-variant",
           "completed": false
         },
         {
           "id": "tww_weekly_5",
-          "name": "Weekly Task 5",
-          "subtitle": "Earn reputation with factions",
-          "type": "reputation",
+          "name": "Kill the World Boss in Undermine",
+          "subtitle": "Resides in the northern part of the map.",
+          "type": "quest",
           "icon": "mdi-account-group",
           "completed": false
         },
         {
           "id": "tww_weekly_6",
-          "name": "Weekly Task 6",
-          "subtitle": "Complete special activities",
-          "type": "activity",
+          "name": "Complete the dungeon quest",
+          "subtitle": "Simply finish the dungeon on normal or above",
+          "type": "dungeon",
           "icon": "mdi-star",
           "completed": false
         },
         {
           "id": "tww_weekly_7",
-          "name": "Weekly Task 7",
-          "subtitle": "Collect special items",
-          "type": "collection",
+          "name": "Complete the weekly activity",
+          "subtitle": "Usually a choice of 4 activities.",
+          "type": "quest",
           "icon": "mdi-package-variant-closed",
           "completed": false
-        },
-        {
-          "id": "tww_weekly_8",
-          "name": "Weekly Task 8",
-          "subtitle": "Craft special items",
-          "type": "profession",
-          "icon": "mdi-hammer",
-          "completed": false
-        },
-        {
-          "id": "tww_weekly_9",
-          "name": "Weekly Task 9",
-          "subtitle": "Complete multiple dungeons",
-          "type": "dungeon",
-          "icon": "mdi-gate",
-          "completed": false,
-          "isCountable": true,
-          "currentCount": 0,
-          "targetCount": 4
-        },
-        {
-          "id": "tww_weekly_10",
-          "name": "Weekly Task 10",
-          "subtitle": "Defeat world bosses",
-          "type": "raid",
-          "icon": "mdi-dragon",
-          "completed": false,
-          "isCountable": true,
-          "currentCount": 0,
-          "targetCount": 2
         }
       ]
     }

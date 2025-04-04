@@ -52,13 +52,13 @@
             <v-chip
               v-for="tag in task.tags"
               :key="tag"
-              :color="getTagColor(tag)"
+              :color="getTagData(tag).color"
               class="ma-1"
               small
               label
               density="compact"
             >
-              {{ getTagLabel(tag) }}
+              {{ getTagData(tag).label }}
             </v-chip>
           </div>
         </div>
@@ -156,10 +156,11 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps, defineEmits, ref } from 'vue'
+import { computed, defineProps, defineEmits, ref, watch } from 'vue'
 import type { PropType } from 'vue'
 import type { Task } from '@/types/tasks'
-import { TaskTag } from '@/types/tasks'
+import { TaskTag, TagData, TaskTypeData } from '@/types/tasks'
+import { snackbarService } from '@/services/snackbarService'
 
 const props = defineProps({
   task: {
@@ -175,6 +176,9 @@ const showNotesDialog = ref(false)
 const taskNotes = ref(props.task.notes || '')
 const hasNotes = computed(() => Boolean(props.task.notes?.trim()))
 
+// Previous completion state for tracking changes
+const previousCompletionState = ref(false)
+
 // Check if the task is completed
 const isCompleted = computed(() => {
   if (props.task.isCountable && props.task.currentCount !== undefined && props.task.targetCount !== undefined) {
@@ -183,9 +187,26 @@ const isCompleted = computed(() => {
   return props.task.completed
 })
 
+// Watch for changes in completion status to show snackbar message
+watch(isCompleted, (newValue, oldValue) => {
+  if (newValue === true && oldValue === false) {
+    snackbarService.showSuccess() // Show random praise message
+  }
+}, { immediate: true })
+
 // Helper functions for task updates
 const updateCompleted = (value: boolean) => {
-  emit('update', { ...props.task, completed: value })
+  const wasCompletedBefore = props.task.completed
+  const updatedTask = { ...props.task, completed: value }
+
+  // Show snackbar message if task is now completed (but wasn't before)
+  if (value && !wasCompletedBefore) {
+    snackbarService.showSuccess()
+  } else if (!value && wasCompletedBefore) {
+    snackbarService.showInfo('Task marked as incomplete')
+  }
+
+  emit('update', updatedTask)
 }
 
 const incrementCount = () => {
@@ -193,12 +214,20 @@ const incrementCount = () => {
     if (props.task.currentCount < props.task.targetCount) {
       const newCount = props.task.currentCount + 1
       const newCompleted = newCount >= props.task.targetCount
+      const wasCompletedBefore = props.task.currentCount >= props.task.targetCount
 
-      emit('update', {
+      const updatedTask = {
         ...props.task,
         currentCount: newCount,
         completed: newCompleted
-      })
+      }
+
+      // Show snackbar message if task is now completed (but wasn't before)
+      if (newCompleted && !wasCompletedBefore) {
+        snackbarService.showSuccess()
+      }
+
+      emit('update', updatedTask)
     }
   }
 }
@@ -225,44 +254,50 @@ const openNotesDialog = () => {
 }
 
 const saveNotes = () => {
-  emit('update', {
+  const updatedTask = {
     ...props.task,
     notes: taskNotes.value
-  })
+  }
+
+  // Show message when notes are saved
+  if (taskNotes.value.trim()) {
+    snackbarService.showInfo('Notes saved successfully')
+  }
+
+  emit('update', updatedTask)
   showNotesDialog.value = false
 }
 
 const clearNotes = () => {
   taskNotes.value = ''
+
   emit('update', {
     ...props.task,
     notes: ''
   })
+
+  snackbarService.showInfo('Notes cleared')
   showNotesDialog.value = false
 }
 
-// Get appropriate label for task tag
-const getTagLabel = (tag: string): string => {
-  return TaskTag[tag as keyof typeof TaskTag] || tag
+// Get tag data from the central TagData mapping
+const getTagData = (tag: string) => {
+  return TagData[tag] || { label: tag, color: 'grey' }
 }
 
-// Get appropriate color for task tag
-const getTagColor = (tag: string): string => {
-  const colorMap: {[key: string]: string} = {
-    reputation: 'blue',
-    cofferKeys: 'amber',
-    veteranGear: 'green',
-    pinnacleChest: 'purple',
-    crafting: 'orange',
-    activity: 'light-blue',
-    collection: 'teal',
-    profession: 'brown',
-    pvp: 'red',
-    quest: 'indigo',
-    dungeon: 'grey',
-    raid: 'deep-purple'
+// Get task type icon
+const getTaskTypeIcon = () => {
+  // First check if the task has a specific icon defined
+  if ('icon' in props.task) {
+    return props.task.icon
   }
-  return colorMap[tag] || 'grey'
+  // Otherwise use the default icon for this task type from TaskTypeData
+  return TaskTypeData[props.task.type]?.icon || 'mdi-help-circle'
+}
+
+// Get task type color
+const getTaskTypeColor = () => {
+  return TaskTypeData[props.task.type]?.color || 'grey'
 }
 
 // Add delete dialog state
@@ -277,6 +312,12 @@ const confirmDelete = () => {
 const deleteTask = () => {
   emit('delete:task', props.task.id)
   showDeleteDialog.value = false
+  snackbarService.showInfo('Task deleted')
+}
+
+// Capitalize the first letter of a string
+const capitalizeFirstLetter = (string: string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
 }
 </script>
 

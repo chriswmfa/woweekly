@@ -1,13 +1,5 @@
 <template>
   <div>
-    <v-btn
-      color="primary"
-      class="mb-3"
-      @click="openAddTaskDialog"
-    >
-      Add Task
-    </v-btn>
-
     <v-dialog v-model="showAddTaskDialog" max-width="500">
       <v-card>
         <v-card-title class="d-flex align-center">
@@ -67,11 +59,21 @@
     </v-dialog>
 
     <v-card class="task-card" elevation="3" color="surface">
-      <v-card-title>
-        <v-icon :color="type === 'weekly' ? 'primary' : 'success'" class="mr-2">
-          mdi-calendar-week
-        </v-icon>
-        Weekly Task List
+      <v-card-title class="d-flex align-center justify-space-between">
+        <div class="d-flex align-center">
+          <v-icon :color="type === 'weekly' ? 'primary' : 'success'" class="mr-2">
+            mdi-calendar-week
+          </v-icon>
+          Weekly Task List
+        </div>
+        <v-btn
+          color="primary"
+          size="small"
+          @click="openAddTaskDialog"
+        >
+          <v-icon size="small" class="mr-1">mdi-plus</v-icon>
+          Add Task
+        </v-btn>
       </v-card-title>
       <v-divider class="border-opacity-15"></v-divider>
       <v-card-text>
@@ -99,6 +101,7 @@ import type { PropType } from 'vue'
 import type { Task } from '@/types/tasks'
 import TaskItem from './TaskItem.vue'
 import { TaskTag } from '@/types/tasks'
+import { snackbarService } from '@/services/snackbarService'
 
 const props = defineProps({
   tasks: {
@@ -187,6 +190,8 @@ const addTask = () => {
   }
 
   emit('update:tasks', taskToAdd)
+  // Show success message when task is added
+  snackbarService.showInfo(`Task "${taskToAdd.name}" added successfully`)
 
   closeAddTaskDialog()
 }
