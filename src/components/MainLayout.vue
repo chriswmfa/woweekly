@@ -3,11 +3,11 @@
     <!-- Top Banner -->
     <v-app-bar app elevation="6">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title class="wow-title">
-        <v-icon color="secondary" class="mr-2">mdi-sword-cross</v-icon>
+      <v-toolbar-title class="wow-title" style="text-transform: none;">
         {{ title }}
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <ResetTimer class="mr-4" />
       <v-btn icon>
         <v-icon color="secondary">mdi-cog</v-icon>
       </v-btn>
@@ -64,6 +64,7 @@
 // Import necessary Vue and Vuetify features
 import { ref } from 'vue'
 import SnackbarNotification from '@/components/SnackbarNotification.vue'
+import ResetTimer from '@/components/ResetTimer.vue'
 
 // State for controlling drawer and mini-variant mode
 const drawer = ref(true)
@@ -77,7 +78,7 @@ const menuItems = ref([
 ])
 
 // Title for the banner
-const title = ref('Weekly Wow Tasks')
+const title = ref('WoWeekly')
 
 // Handle window resize to update miniVariant
 window.addEventListener('resize', () => {

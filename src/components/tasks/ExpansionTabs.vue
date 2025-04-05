@@ -11,6 +11,7 @@
         v-for="(expansion, key) in expansions"
         :key="key"
         :value="key"
+        style="text-transform: none;"
       >
         <v-icon :color="getExpansionColor(key)" class="mr-2">{{ getExpansionIcon(key) }}</v-icon>
         {{ expansion.name }}
@@ -22,6 +23,7 @@
         :key="unavailableKey"
         disabled
         :value="unavailableKey"
+        style="text-transform: none;"
       >
         <v-icon color="grey" class="mr-2">{{ getExpansionIcon(unavailableKey) }}</v-icon>
         <span class="text-grey">{{ ExpansionData[unavailableKey].name }}</span>

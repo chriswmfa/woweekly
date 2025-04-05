@@ -39,7 +39,7 @@ export const enum TaskTag {
   cofferKeys = 'Coffer Keys',
   veteranGear = 'Veteran Gear',
   loot = 'Loot',
-  pinnacleChest = 'Pinnacle Chest',
+  cache = 'Cache',
   crafting = 'Crafting',
   activity = 'Activity',
   collection = 'Collection',
@@ -62,7 +62,7 @@ export const TagData: Record<string, TagInfo> = {
   cofferKeys: { label: TaskTag.cofferKeys, color: 'amber' },
   veteranGear: { label: TaskTag.veteranGear, color: 'green' },
   loot: { label: TaskTag.loot, color: 'purple' },
-  pinnacleChest: { label: TaskTag.pinnacleChest, color: 'purple' },
+  cache: { label: TaskTag.cache, color: 'purple' },
   crafting: { label: TaskTag.crafting, color: 'orange' },
   activity: { label: TaskTag.activity, color: 'light-blue' },
   collection: { label: TaskTag.collection, color: 'teal' },
@@ -94,6 +94,11 @@ export const TaskTypeData: Record<string, TaskTypeInfo> = {
   activity: { name: 'Activity', icon: 'mdi-map-marker', color: 'light-blue' }
 }
 
+export interface WowheadData {
+  type: 'quest' | 'npc' | 'zone' | 'item' | 'spell' | 'achievement';
+  id: number;
+}
+
 export interface Task {
   id: string;
   name: string;
@@ -105,6 +110,7 @@ export interface Task {
   currentCount?: number; // Current progress (e.g. 1, 2)
   targetCount?: number; // Target count needed to complete the task (e.g. 3)
   notes?: string; // User's personal notes for this task
+  wowheadData?: WowheadData; // Data for linking to Wowhead
 }
 
 export interface ExpansionData {

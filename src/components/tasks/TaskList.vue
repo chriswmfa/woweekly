@@ -70,9 +70,10 @@
           color="primary"
           size="small"
           @click="openAddTaskDialog"
+          style="text-transform: none;"
         >
           <v-icon size="small" class="mr-1">mdi-plus</v-icon>
-          Add Task
+          Add Custom Task
         </v-btn>
       </v-card-title>
       <v-divider class="border-opacity-15"></v-divider>

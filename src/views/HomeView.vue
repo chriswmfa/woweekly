@@ -11,7 +11,7 @@
             class="align-middle"
           >
             <div class="hero-overlay">
-              <h1 class="text-h2 font-weight-bold cinzel-font">Weekly WoW Tasks</h1>
+              <h1 class="text-h2 font-weight-bold cinzel-font">WoWeekly</h1>
               <p class="text-h6 mt-2">Track your progress across Azeroth</p>
             </div>
           </v-img>

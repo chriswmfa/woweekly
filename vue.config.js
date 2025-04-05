@@ -5,7 +5,7 @@ module.exports = defineConfig({
   // Set the title that will appear in the browser tab
   chainWebpack: config => {
     config.plugin('html').tap(args => {
-      args[0].title = 'Weekly WoW Tasks'
+      args[0].title = '#WoWeekly'
       return args
     })
   },

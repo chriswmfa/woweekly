@@ -9,57 +9,96 @@
           "subtitle": "Complete the raid on your preferred difficulty.",
           "type": "raid",
           "tags": ["reputation", "loot"],
-          "completed": false
+          "completed": false,
+          "wowheadData": {
+            "type": "zone",
+            "id": 15522
+          }
         },
         {
           "id": "tww_weekly_2",
-          "name": "Complete 3 Delves",
+          "name": "Delves: Worldwide Research",
           "subtitle": "Complete 3 delves on at least tier 8 or above - Note that tier 11 delves provide gilded crests 3 times per week.",
           "type": "delve",
+          "tags": ["cache"],
           "completed": false,
           "isCountable": true,
           "currentCount": 0,
-          "targetCount": 3
+          "targetCount": 3,
+          "wowheadData": {
+            "type": "quest",
+            "id": 78954
+          }
         },
         {
           "id": "tww_weekly_3",
           "name": "Many Jobs, Handle It!",
           "subtitle": "Complete 10 jobs for Shipping & Handling.",
           "type": "quest",
+          "tags": ["reputation"],
           "icon": "mdi-trophy",
-          "completed": false
+          "completed": false,
+          "wowheadData": {
+            "type": "quest",
+            "id": 85869
+          }
         },
         {
           "id": "tww_weekly_4",
           "name": "Urge to Surge",
           "subtitle": "Participate in a Surge Pricing event.",
           "type": "quest",
+          "tags": ["reputation", "cache"],
           "icon": "mdi-book-open-variant",
-          "completed": false
+          "completed": false,
+          "wowheadData": {
+            "type": "quest",
+            "id": 83321
+          }
         },
         {
           "id": "tww_weekly_5",
-          "name": "Kill the World Boss in Undermine",
+          "name": "Kill The Underpin",
           "subtitle": "Resides in the northern part of the map.",
           "type": "quest",
+          "tags": ["loot"],
           "icon": "mdi-account-group",
-          "completed": false
+          "completed": false,
+          "wowheadData": {
+            "type": "npc",
+            "id": 234168
+          }
         },
         {
           "id": "tww_weekly_6",
           "name": "Complete the dungeon quest",
           "subtitle": "Simply finish the dungeon on normal or above",
           "type": "dungeon",
+          "tags": ["reputation"],
           "icon": "mdi-star",
           "completed": false
         },
         {
           "id": "tww_weekly_7",
-          "name": "Complete the weekly activity",
+          "name": "The Call of the World Soul",
           "subtitle": "Usually a choice of 4 activities.",
           "type": "quest",
+          "tags": ["cache"],
           "icon": "mdi-package-variant-closed",
           "completed": false
+        },
+        {
+          "id": "tww_weekly_8",
+          "name": "Archives: Seeking History",
+          "subtitle": "Collect 100 titan disc fragments.",
+          "type": "quest",
+          "tags": ["cache"],
+          "icon": "mdi-package-variant-closed",
+          "completed": false,
+          "wowheadData": {
+            "type": "quest",
+            "id": 84215
+          }
         }
       ]
     }

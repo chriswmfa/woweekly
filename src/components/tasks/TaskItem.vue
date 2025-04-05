@@ -47,7 +47,18 @@
     <div class="flex-grow-1">
       <v-list-item-title :class="{'text-decoration-line-through': isCompleted}">
         <div class="d-flex align-center">
-          {{ task.name }}
+          <a 
+            v-if="task.wowheadData" 
+            :href="getWowheadUrl(task.wowheadData)" 
+            target="_blank"
+            class="task-link"
+            @click.stop
+            :class="{'text-decoration-line-through': isCompleted}"
+          >
+            {{ task.name }}
+            <v-icon size="x-small" class="ms-1">mdi-open-in-new</v-icon>
+          </a>
+          <span v-else>{{ task.name }}</span>
           <div class="tags-container ms-2">
             <v-chip
               v-for="tag in task.tags"
@@ -55,6 +66,7 @@
               :color="getTagData(tag).color"
               class="ma-1"
               small
+              variant="elevated"
               label
               density="compact"
             >
@@ -319,6 +331,26 @@ const deleteTask = () => {
 const capitalizeFirstLetter = (string: string) => {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
 }
+
+// Get the appropriate Wowhead URL based on the data type
+const getWowheadUrl = (data: { type: string; id: number }) => {
+  switch (data.type) {
+    case 'quest':
+      return `https://www.wowhead.com/quest=${data.id}`
+    case 'npc':
+      return `https://www.wowhead.com/npc=${data.id}`
+    case 'zone':
+      return `https://www.wowhead.com/zone=${data.id}`
+    case 'item':
+      return `https://www.wowhead.com/item=${data.id}`
+    case 'spell':
+      return `https://www.wowhead.com/spell=${data.id}`
+    case 'achievement':
+      return `https://www.wowhead.com/achievement=${data.id}`
+    default:
+      return 'https://www.wowhead.com/'
+  }
+}
 </script>
 
 <style scoped>
@@ -385,5 +417,28 @@ const capitalizeFirstLetter = (string: string) => {
   font-size: 0.75rem;
   height: 20px;
   line-height: 20px;
+}
+
+.task-link {
+  color: #4F9DFF;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.task-link:hover {
+  color: #7CB5FF;
+  text-decoration: underline;
+}
+
+.task-link .v-icon {
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.task-link:hover .v-icon {
+  opacity: 1;
 }
 </style>
