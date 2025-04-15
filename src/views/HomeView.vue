@@ -59,7 +59,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { Expansion, ExpansionData } from '@/types/tasks'
+import { ExpansionData } from '@/types/tasks'
 
 // Create expansions array using the ExpansionData object
 const expansions = ref([

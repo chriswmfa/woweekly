@@ -182,7 +182,6 @@ const addTask = () => {
     name: newTask.value.title,
     subtitle: newTask.value.subtitle || '',
     type: primaryTag,
-    icon: 'mdi-check-circle',
     completed: false,
     isCountable: newTask.value.type === 'countable',
     currentCount: newTask.value.type === 'countable' ? 0 : undefined,

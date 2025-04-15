@@ -1,0 +1,42 @@
+{
+  "factions": [
+    {
+      "id": 2159,
+      "name": "7th Legion",
+      "faction": "Alliance",
+      "methods": [
+        {
+          "id": "7l_method_1",
+          "name": "Azerite for the Alliance",
+          "description": "Assist the Alliance by collecting Azerite on Island Expeditions.",
+          "type": "weekly",
+          "reputation": 1500,
+          "wowheadLink": "quest=53436"
+        },
+        {
+          "id": "7l_method_2",
+          "name": "World Quests",
+          "description": "Complete 7th Legion world quests in Kul Tiras.",
+          "type": "daily",
+          "reputation": "Mixed",
+          "wowheadLink": "faction=2159"
+        },
+        {
+          "id": "7l_method_3",
+          "name": "War Campaign",
+          "description": "Complete the War Campaign quests in Kul Tiras.",
+          "type": "One Time",
+          "reputation": "Mixed",
+          "wowheadLink": "achievement=12510"
+        },
+        {
+          "id": "7l_method_4",
+          "name": "Garrison Missions",
+          "description": "Complete available Garrison missions that reward 7th Legion reputation.",
+          "type": "daily",
+          "reputation": "Mixed"
+        }
+      ]
+    }
+  ]
+}

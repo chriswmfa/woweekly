@@ -47,9 +47,9 @@
     <div class="flex-grow-1">
       <v-list-item-title :class="{'text-decoration-line-through': isCompleted}">
         <div class="d-flex align-center">
-          <a 
-            v-if="task.wowheadData" 
-            :href="getWowheadUrl(task.wowheadData)" 
+          <a
+            v-if="task.wowheadData"
+            :href="getWowheadUrl(task.wowheadData)"
             target="_blank"
             class="task-link"
             @click.stop
@@ -171,7 +171,7 @@
 import { computed, defineProps, defineEmits, ref, watch } from 'vue'
 import type { PropType } from 'vue'
 import type { Task } from '@/types/tasks'
-import { TaskTag, TagData, TaskTypeData } from '@/types/tasks'
+import { TagData } from '@/types/tasks'
 import { snackbarService } from '@/services/snackbarService'
 
 const props = defineProps({
@@ -187,9 +187,6 @@ const emit = defineEmits(['update', 'delete:task'])
 const showNotesDialog = ref(false)
 const taskNotes = ref(props.task.notes || '')
 const hasNotes = computed(() => Boolean(props.task.notes?.trim()))
-
-// Previous completion state for tracking changes
-const previousCompletionState = ref(false)
 
 // Check if the task is completed
 const isCompleted = computed(() => {
@@ -297,21 +294,6 @@ const getTagData = (tag: string) => {
   return TagData[tag] || { label: tag, color: 'grey' }
 }
 
-// Get task type icon
-const getTaskTypeIcon = () => {
-  // First check if the task has a specific icon defined
-  if ('icon' in props.task) {
-    return props.task.icon
-  }
-  // Otherwise use the default icon for this task type from TaskTypeData
-  return TaskTypeData[props.task.type]?.icon || 'mdi-help-circle'
-}
-
-// Get task type color
-const getTaskTypeColor = () => {
-  return TaskTypeData[props.task.type]?.color || 'grey'
-}
-
 // Add delete dialog state
 const showDeleteDialog = ref(false)
 
@@ -325,11 +307,6 @@ const deleteTask = () => {
   emit('delete:task', props.task.id)
   showDeleteDialog.value = false
   snackbarService.showInfo('Task deleted')
-}
-
-// Capitalize the first letter of a string
-const capitalizeFirstLetter = (string: string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
 }
 
 // Get the appropriate Wowhead URL based on the data type

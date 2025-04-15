@@ -79,7 +79,6 @@
 import { ref, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import type { TasksData, Task } from '@/types/tasks'
-import { Expansion } from '@/types/tasks'
 
 // Import components
 import ExpansionTabs from '@/components/tasks/ExpansionTabs.vue'

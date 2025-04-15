@@ -1,12 +1,5 @@
 import { reactive } from 'vue'
-
-// Define the type for the snackbar state
-interface SnackbarState {
-  show: boolean
-  message: string
-  color: string
-  timeout: number
-}
+import { SnackbarState } from '@/types/snackbar'
 
 // Random praise messages for task completion
 const praiseMessages = [

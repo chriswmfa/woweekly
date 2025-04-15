@@ -8,9 +8,6 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <ResetTimer class="mr-4" />
-      <v-btn icon>
-        <v-icon color="secondary">mdi-cog</v-icon>
-      </v-btn>
     </v-app-bar>
 
     <!-- Enhanced Side Menu -->
@@ -23,11 +20,6 @@
       elevation="4"
       border="opacity-25"
     >
-      <v-list-item class="mt-2 mb-2">
-        <v-list-item-avatar>
-          <v-img src="@/assets/logo.png"></v-img>
-        </v-list-item-avatar>
-      </v-list-item>
 
       <v-divider class="border-opacity-25"></v-divider>
 
@@ -39,7 +31,7 @@
           :to="item.path"
           link
           :prepend-icon="item.icon"
-          :active-color="item.color || 'primary'"
+          :color="item.color || 'primary'"
           rounded="lg"
           class="mb-1"
         >
@@ -74,6 +66,7 @@ const miniVariant = ref(window.innerWidth < 1600 && window.innerWidth >= 1280)
 const menuItems = ref([
   { title: 'Home', path: '/', icon: 'mdi-home', color: 'alliance' },
   { title: 'Tasks', path: '/tasks', icon: 'mdi-checkbox-marked-circle-outline', color: 'primary' },
+  { title: 'Reputations', path: '/reputations', icon: 'mdi-shield-star', color: 'purple' },
   { title: 'About', path: '/about', icon: 'mdi-information', color: 'secondary' }
 ])
 

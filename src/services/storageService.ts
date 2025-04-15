@@ -1,19 +1,11 @@
 import CryptoJS from 'crypto-js'
-import { SavedTasksState, Task } from '@/types/tasks'
+import { SavedTasksState } from '@/types/tasks'
+import { CustomTasksStorage } from '@/types/storage'
 
-// The key used for encryption/decryption (you can change this)
+// The keys used for encryption/decryption and storage (you can change these)
 const ENCRYPTION_KEY = 'weekly-wow-tasks-secure-key'
-const STORAGE_KEY = 'wow-task-progress'
-const CUSTOM_TASKS_KEY = 'wow-custom-tasks'
-
-/**
- * Interface for custom tasks storage
- */
-interface CustomTasksStorage {
-  [expansionKey: string]: {
-    weekly: Task[]
-  }
-}
+const STORAGE_KEY = 'save-state'
+const CUSTOM_TASKS_KEY = 'weekly-wow-custom-tasks'
 
 /**
  * Service for encrypting and storing task progress in localStorage

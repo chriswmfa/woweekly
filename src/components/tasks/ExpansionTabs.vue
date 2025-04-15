@@ -26,7 +26,7 @@
         style="text-transform: none;"
       >
         <v-icon color="grey" class="mr-2">{{ getExpansionIcon(unavailableKey) }}</v-icon>
-        <span class="text-grey">{{ ExpansionData[unavailableKey].name }}</span>
+        <span class="text-grey">{{ ExpansionData[unavailableKey as keyof typeof ExpansionData]?.name }}</span>
       </v-tab>
     </v-tabs>
   </v-card>
