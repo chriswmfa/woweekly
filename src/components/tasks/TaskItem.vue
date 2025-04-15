@@ -5,9 +5,13 @@
     class="mb-1 position-relative"
   >
     <template v-slot:prepend>
-      <!-- Regular checkbox for non-countable tasks -->
+      <!-- Info icon for non-completable tasks -->
+      <div v-if="task.completable === false" class="d-flex align-center mr-2 ml-1">
+        <v-icon size="small" color="grey">mdi-information-outline</v-icon>
+      </div>
+      <!-- Regular checkbox for non-countable but completable tasks -->
       <v-checkbox
-        v-if="!task.isCountable"
+        v-else-if="!task.isCountable"
         density="compact"
         hide-details
         :model-value="task.completed"

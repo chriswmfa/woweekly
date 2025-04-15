@@ -201,6 +201,7 @@ export interface Task {
   type: string; // Keep as string for backward compatibility
   tags: string[]; // Keep as string[] for backward compatibility
   completed: boolean;
+  completable?: boolean; // Whether this task can be completed with a checkbox (defaults to true)
   isCountable?: boolean; // Whether this task has multiple steps to complete (e.g. "Complete 3 Delves")
   currentCount?: number; // Current progress (e.g. 1, 2)
   targetCount?: number; // Target count needed to complete the task (e.g. 3)

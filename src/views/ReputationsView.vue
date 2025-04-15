@@ -14,6 +14,16 @@
               @refresh-complete="handleRefreshComplete"
             />
             <h1 class="text-h3 font-weight-bold cinzel-font">Reputations</h1>
+
+            <!-- Description section -->
+            <p class="description-text mt-3 mx-auto" style="max-width: 800px;">
+              Track your faction reputations, manage reputation tasks, and find ways to increase your standing.
+              Use the filters below to focus on specific factions or hide completed ones.
+              Check off reputation tasks as you complete them to track your progress.
+            </p>
+            <p class="description-text mt-3 mx-auto" style="max-width: 800px;">Please note that not every single possible method of gaining reputation is listed here, some obscure
+              methods may be missing however the most common ones are included.
+            </p>
           </div>
 
           <v-card-text class="pa-6">
@@ -255,12 +265,14 @@
                         <!-- Methods count badge -->
                         <v-badge
                           v-if="
-                            reputation.methods && reputation.methods.length > 0
+                            reputation.methods &&
+                            reputation.methods.length > 0 &&
+                            getCompletableMethodsCount(reputation) > 0
                           "
                           :content="
                             getCompletedMethodsCount(reputation) +
                             '/' +
-                            reputation.methods.length
+                            getCompletableMethodsCount(reputation)
                           "
                           color="success"
                           inline
@@ -292,10 +304,15 @@
                               >
                             </div>
                             <span class="text-caption">
-                              {{ getCompletedMethodsCount(reputation) }}/{{
-                                reputation.methods.length
-                              }}
-                              completed
+                              <span v-if="getCompletableMethodsCount(reputation) > 0">
+                                {{ getCompletedMethodsCount(reputation) }}/{{
+                                  getCompletableMethodsCount(reputation)
+                                }}
+                                completed
+                              </span>
+                              <span v-else class="text-grey">
+                                No completable methods
+                              </span>
                             </span>
                           </div>
 
@@ -317,11 +334,17 @@
                               class="method-item mb-1 rounded-sm px-2"
                               :class="{
                                 'bg-success-subtle':
-                                  methodCompletionTracking[method.id],
+                                  method.completable !== false && methodCompletionTracking[method.id],
                               }"
                             >
                               <template v-slot:prepend>
+                                <!-- Info icon for non-completable methods -->
+                                <div v-if="method.completable === false" class="d-flex align-center mr-2 ml-1">
+                                  <v-icon size="small" color="grey">mdi-information-outline</v-icon>
+                                </div>
+                                <!-- Checkbox for completable methods -->
                                 <v-checkbox
+                                  v-else
                                   density="compact"
                                   hide-details
                                   :model-value="
@@ -530,6 +553,17 @@ const filteredReputations = computed(() => {
   return result.sort((a, b) => a.faction.name.localeCompare(b.faction.name))
 })
 
+// Get reputation stats summary counts
+const reputationStats = computed(() => {
+  if (reputations.value.length === 0) return { exalted: 0, inProgress: 0, total: 0 }
+
+  const exaltedCount = reputations.value.filter(rep => isExalted(rep)).length
+  const total = reputations.value.length
+  const inProgress = total - exaltedCount
+
+  return { exalted: exaltedCount, inProgress, total }
+})
+
 // Helper function to get standing color based on tier
 const getStandingColor = (tier: number): string => {
   const colors = {
@@ -571,26 +605,15 @@ const getRepTierLabel = (reputation: Reputation): string => {
   if (hasRenown) {
     // For renown-based reputations
     const level = reputation.standing.renown_level
-    const isMax = isMaxRank(reputation)
-    return `Renown ${level}${isMax ? '/' + level : ''}`
+    return `Renown ${level}`
   } else if (hasTier) {
     // For traditional tier-based reputations
     const tier = reputation.standing.tier
-    const isMax = isMaxRank(reputation)
-    return `Tier ${tier}${isMax ? '/' + tier : ''}`
+    return `Tier ${tier}`
   } else {
     // Fallback for any other format
     return ''
   }
-}
-
-// Helper function to check if reputation is at max rank
-const isMaxRank = (reputation: Reputation): boolean => {
-  return (
-    reputation.standing.value === 0 ||
-    (reputation.standing.value >= reputation.standing.max &&
-      reputation.standing.max > 0)
-  )
 }
 
 // Helper function to truncate faction names
@@ -653,8 +676,20 @@ const toggleExpanded = (reputationId: string) => {
 // Function to get the number of completed methods for a reputation
 const getCompletedMethodsCount = (reputation: EnhancedReputation): number => {
   if (!reputation.methods) return 0
+
+  // Only count completable methods that are marked as completed
   return reputation.methods.filter(
-    (method) => methodCompletionTracking.value[method.id]
+    (method) => method.completable !== false && methodCompletionTracking.value[method.id]
+  ).length
+}
+
+// Count total completable methods
+const getCompletableMethodsCount = (reputation: EnhancedReputation): number => {
+  if (!reputation.methods) return 0
+
+  // Only count methods that can be completed (not marked with completable: false)
+  return reputation.methods.filter(
+    (method) => method.completable !== false
   ).length
 }
 
@@ -663,9 +698,15 @@ const getMethodsCompletionPercentage = (
   reputation: EnhancedReputation
 ): number => {
   if (!reputation.methods || reputation.methods.length === 0) return 0
-  return (
-    (getCompletedMethodsCount(reputation) / reputation.methods.length) * 100
-  )
+
+  // Get count of completable methods
+  const completableCount = getCompletableMethodsCount(reputation)
+
+  // If no completable methods, return 0
+  if (completableCount === 0) return 0
+
+  // Calculate percentage using only completable methods
+  return (getCompletedMethodsCount(reputation) / completableCount) * 100
 }
 
 // Save method completion status to localStorage

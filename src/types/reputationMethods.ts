@@ -8,6 +8,7 @@ export interface ReputationMethod {
   type: 'daily' | 'weekly' | 'one-time' | 'repeatable'
   reputation: number
   wowheadLink?: string
+  completable?: boolean // Whether this method can be completed with a checkbox (defaults to true)
 }
 
 // Interface for faction method mapping

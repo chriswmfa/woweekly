@@ -182,6 +182,11 @@ const getCompletedTasksCount = (expansionKey: string | number, taskType: 'weekly
 
 // Check if a task is completed (utility function)
 const isTaskCompleted = (task: Task) => {
+  // Non-completable tasks should never be considered as completed for progress calculation
+  if (task.completable === false) {
+    return false
+  }
+
   if (task.isCountable && task.currentCount !== undefined && task.targetCount !== undefined) {
     return task.currentCount >= task.targetCount
   }

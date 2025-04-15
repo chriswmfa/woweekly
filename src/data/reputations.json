@@ -3,7 +3,6 @@
     {
       "id": 2159,
       "name": "7th Legion",
-      "faction": "Alliance",
       "methods": [
         {
           "id": "7l_method_1",
@@ -37,6 +36,19 @@
           "reputation": "Mixed"
         }
       ]
+    },
+    {
+      "id": 2544,
+      "name": "Artisan's Consortium - Dragon Isles Branch",
+      "methods": [{
+        "id": "artisan_method_1",
+        "name": "Artisan's Consortium Contract",
+        "description": "Complete world quests whilst under the effect of a Artisan's Consortium contract. (Lasts 7 days)",
+        "type": "daily",
+        "reputation": "150 reputation per world quest",
+        "wowheadLink": "faction=2159",
+        "completable": false
+      }]
     }
   ]
 }

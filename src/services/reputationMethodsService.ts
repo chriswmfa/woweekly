@@ -1,4 +1,4 @@
-import reputationMethodsData from '@/data/reputationMethods.json'
+import reputationMethodsData from '@/data/reputations.json'
 import { Reputation } from '@/types/reputation'
 import { ReputationMethod, FactionMethods, EnhancedReputation } from '@/types/reputationMethods'
 
