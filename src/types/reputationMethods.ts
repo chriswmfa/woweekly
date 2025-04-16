@@ -6,7 +6,7 @@ export interface ReputationMethod {
   name: string
   description: string
   type: 'daily' | 'weekly' | 'one-time' | 'repeatable'
-  reputation: number
+  reputation: number | string
   wowheadLink?: string
   completable?: boolean // Whether this method can be completed with a checkbox (defaults to true)
 }

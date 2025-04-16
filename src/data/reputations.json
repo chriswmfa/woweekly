@@ -9,7 +9,7 @@
           "name": "Azerite for the Alliance",
           "description": "Assist the Alliance by collecting Azerite on Island Expeditions.",
           "type": "weekly",
-          "reputation": 1500,
+          "reputation": "1500 reputation",
           "wowheadLink": "quest=53436"
         },
         {
@@ -17,7 +17,7 @@
           "name": "World Quests",
           "description": "Complete 7th Legion world quests in Kul Tiras.",
           "type": "daily",
-          "reputation": "Mixed",
+          "reputation": "mixed reputation",
           "wowheadLink": "faction=2159"
         },
         {
@@ -25,7 +25,7 @@
           "name": "War Campaign",
           "description": "Complete the War Campaign quests in Kul Tiras.",
           "type": "One Time",
-          "reputation": "Mixed",
+          "reputation": "mixed reputation",
           "wowheadLink": "achievement=12510"
         },
         {
@@ -33,22 +33,896 @@
           "name": "Garrison Missions",
           "description": "Complete available Garrison missions that reward 7th Legion reputation.",
           "type": "daily",
-          "reputation": "Mixed"
+          "reputation": "mixed reputation"
         }
       ]
     },
     {
       "id": 2544,
       "name": "Artisan's Consortium - Dragon Isles Branch",
+      "methods": [
+        {
+          "id": "artisan_method_1",
+          "name": "Artisan's Consortium Contract",
+          "description": "Complete world quests whilst under the effect of a Artisan's Consortium contract. (Lasts 7 days)",
+          "type": "daily",
+          "reputation": "Guaranteed 150 reputation per world quest",
+          "wowheadLink": "faction=2544",
+          "completable": false
+        }
+      ]
+    },
+    {
+      "id": 2615,
+      "name": "Azerothian Archives",
+      "methods": [
+        {
+          "id": "aa_method_1",
+          "name": "Introductory Quests",
+          "description": "Complete the introductory quests.",
+          "type": "one time",
+          "reputation": "Guaranteed 1800 Reputation",
+          "wowheadLink": "quest=77325",
+          "completable": true
+        },
+        {
+          "id": "aa_method_2",
+          "name": "Big Dig Event",
+          "description": "Finishing the event rewards 3000 reputation, the boss will provide 50 reputation plus more reputation for each tome you open.",
+          "type": "weekly",
+          "reputation": "Guaranteed 3050 Reputation plus random amount for tomes",
+          "wowheadLink": "quest=77325",
+          "completable": true
+        }
+      ]
+    },
+    {
+      "id": 1177,
+      "name": "Baradin's Wardens",
+      "methods": [
+        {
+          "id": "bw_method_1",
+          "name": "Daily Quests",
+          "description": "Complete 6 available daily quests from a pool of 23 in Tol Barad.",
+          "type": "daily",
+          "reputation": "Guaranteed 1500 Reputation",
+          "completable": true
+        }
+      ]
+    },
+    {
+      "id": 1133,
+      "name": "Bilgewater Cartel (Horde)",
+      "methods": [
+        {
+          "id": "bc_method_1",
+          "name": "Dungeon Running",
+          "description": "Equip the faction tabard and run Magisters' Terrace.",
+          "type": "unlimited",
+          "reputation": "Guaranteed 3200 Reputation per run.",
+          "completable": false
+        }
+      ]
+    },
+    {
+      "id": 2673,
+      "name": "Bilgewater Cartel (TWW)",
+      "methods": [
+        {
+          "id": "bc_method_1",
+          "name": "Completing World Quests in Undermine",
+          "description": "After picking Bilgewater Cartel as your weekly cartel, complete world quests in Undermine. ",
+          "type": "unlimited",
+          "reputation": "50 reputation per world quest; 200 Cartels of Undermine for the special assignment",
+          "completable": true
+        },
+        {
+          "id": "bc_method_2",
+          "name": "Completing Weekly Quests in Undermine",
+          "description": "Complete weekly quests such as Many Jobs, Handle It!, Urge to Surge, and Reduce, Reuse, Resell.",
+          "type": "weekly",
+          "reputation": "1000 reputation per weekly quest.",
+          "completable": true
+        },
+        {
+          "id": "bc_method_3",
+          "name": "Killing Rare Mobs in Undermine",
+          "description": "Defeat rare mobs in Undermine for daily reputation.",
+          "type": "repeatable",
+          "reputation": "20/50/100 reputation per rare kill (based on rarity)",
+          "completable": false
+        },
+        {
+          "id": "bc_method_4",
+          "name": "Completing Questlines in Undermine",
+          "description": "Complete storyline questlines in Undermine",
+          "type": "one time",
+          "reputation": "2500 reputation per chapter; 100–200 per side quest",
+          "completable": true
+        },
+        {
+          "id": "bc_method_5",
+          "name": "Completing Side Gig Quests",
+          "description": "Pick up Side Gig quests at Slam Central Station.",
+          "type": "daily",
+          "reputation": "50 reputation per Side Gig quest",
+          "completable": true
+        }
+      ]
+    },
+    {
+      "id": 2675,
+      "name": "Blackwater Cartel",
+      "methods": [
+        {
+          "id": "bc_method_1",
+          "name": "Completing World Quests in Undermine",
+          "description": "After picking Blackwater Cartel as your weekly cartel, complete world quests in Undermine. ",
+          "type": "unlimited",
+          "reputation": "50 reputation per world quest; 200 reputation for the special assignment",
+          "completable": true
+        },
+        {
+          "id": "bc_method_2",
+          "name": "Completing Weekly Quests in Undermine",
+          "description": "Complete weekly quests such as Many Jobs, Handle It!, Urge to Surge, and Reduce, Reuse, Resell.",
+          "type": "weekly",
+          "reputation": "1000 reputation per weekly quest.",
+          "completable": true
+        },
+        {
+          "id": "bc_method_3",
+          "name": "Killing Rare Mobs in Undermine",
+          "description": "Defeat rare mobs in Undermine for daily reputation.",
+          "type": "repeatable",
+          "reputation": "20/50/100 reputation per rare kill (based on rarity)",
+          "completable": false
+        },
+        {
+          "id": "bc_method_4",
+          "name": "Completing Questlines in Undermine",
+          "description": "Complete storyline questlines in Undermine",
+          "type": "one time",
+          "reputation": "2500 reputation per chapter; 100–200 per side quest",
+          "completable": true
+        },
+        {
+          "id": "bc_method_5",
+          "name": "Completing Side Gig Quests",
+          "description": "Pick up Side Gig quests at Slam Central Station.",
+          "type": "daily",
+          "reputation": "50 reputation per Side Gig quest",
+          "completable": true
+        }
+      ]
+    },
+    {
+      "id": 1091,
+      "name": "The Wyrmrest Accord",
+      "methods": [
+        {
+          "id": "twa_method_1",
+          "name": "Dungeon Running",
+          "description": "Equip the faction tabard (once friendly) and run WOTLK dungeons.",
+          "type": "unlimited",
+          "reputation": "Mixed reputation per run.",
+          "completable": false
+        },
+        {
+          "id": "twa_method_2",
+          "name": "Quest hubs",
+          "description": "Quests are available in Coldarra & Wyrmwrest Temple.",
+          "type": "daily",
+          "reputation": "Guaranteed 1500 Reputation",
+          "completable": true
+        }
+      ]
+    },
+    {
+      "id": 589,
+      "name": "Wintersaber Trainers",
+      "methods": []
+    },
+    {
+      "id": 54,
+      "name": "Gnomeregan",
+      "methods": [
+        {
+          "id": "gnome_method_1",
+          "name": "Dungeon Running",
+          "description": "Equip the faction tabard and run any dungeon.",
+          "type": "unlimited",
+          "reputation": "Mixed reputation per run.",
+          "completable": false
+        },
+        {
+          "id": "gnome_method_2",
+          "name": "Quest hubs",
+          "description": "Quests are available in Blasted Lands, Dun Morogh, Loch Modan, Stonetalon Mountains, Tanaris, Thousand Needles.",
+          "type": "one time",
+          "reputation": "mixed reputation",
+          "completable": true
+        }
+      ]
+    },
+    {
+      "id": 69,
+      "name": "Darnassus",
+      "methods": [
+        {
+          "id": "darn_method_1",
+          "name": "Dungeon Running",
+          "description": "Equip the faction tabard and run any dungeon.",
+          "type": "unlimited",
+          "reputation": "Mixed reputation per run.",
+          "completable": false
+        },
+        {
+          "id": "darn_method_2",
+          "name": "Quest hubs",
+          "description": "Quests are available in Ashenvale, Darkshore, Feralas, Stonetalon Mountains, Teldrassil, Thousand Needles. ",
+          "type": "one time",
+          "reputation": "mixed reputation",
+          "completable": true
+        }
+      ]
+    },
+    {
+      "id": 470,
+      "name": "Ratchet",
+      "methods": []
+    },
+    {
+      "id": 509,
+      "name": "The League of Arathor",
       "methods": [{
-        "id": "artisan_method_1",
-        "name": "Artisan's Consortium Contract",
-        "description": "Complete world quests whilst under the effect of a Artisan's Consortium contract. (Lasts 7 days)",
-        "type": "daily",
-        "reputation": "150 reputation per world quest",
-        "wowheadLink": "faction=2159",
+        "id": "loa_method_1",
+        "name": "Arathi Basin",
+        "description": "50 per 150 resources collected and 500 for a win.",
+        "type": "unlimited",
+        "reputation": "Minimum 500 reputation",
         "completable": false
       }]
+    },
+    {
+      "id": 72,
+      "name": "Stormwind",
+      "methods": []
+    },
+    {
+      "id": 47,
+      "name": "Ironforge",
+      "methods": []
+    },
+    {
+      "id": 942,
+      "name": "Cenarion Expedition",
+      "methods": []
+    },
+    {
+      "id": 1037,
+      "name": "Alliance Vanguard",
+      "methods": []
+    },
+    {
+      "id": 529,
+      "name": "Argent Dawn",
+      "methods": []
+    },
+    {
+      "id": 1090,
+      "name": "Kirin Tor",
+      "methods": []
+    },
+    {
+      "id": 1119,
+      "name": "The Sons of Hodir",
+      "methods": []
+    },
+    {
+      "id": 910,
+      "name": "Brood of Nozdormu",
+      "methods": []
+    },
+    {
+      "id": 1126,
+      "name": "The Frostborn",
+      "methods": []
+    },
+    {
+      "id": 1106,
+      "name": "Argent Crusade",
+      "methods": []
+    },
+    {
+      "id": 1011,
+      "name": "Lower City",
+      "methods": []
+    },
+    {
+      "id": 59,
+      "name": "Thorium Brotherhood",
+      "methods": []
+    },
+    {
+      "id": 1050,
+      "name": "Valiance Expedition",
+      "methods": []
+    },
+    {
+      "id": 1038,
+      "name": "Ogri'la",
+      "methods": []
+    },
+    {
+      "id": 990,
+      "name": "The Scale of the Sands",
+      "methods": []
+    },
+    {
+      "id": 909,
+      "name": "Darkmoon Faire",
+      "methods": []
+    },
+    {
+      "id": 967,
+      "name": "The Violet Eye",
+      "methods": []
+    },
+    {
+      "id": 933,
+      "name": "The Consortium",
+      "methods": []
+    },
+    {
+      "id": 989,
+      "name": "Keepers of Time",
+      "methods": []
+    },
+    {
+      "id": 21,
+      "name": "Booty Bay",
+      "methods": []
+    },
+    {
+      "id": 1173,
+      "name": "Ramkahen",
+      "methods": []
+    },
+    {
+      "id": 1077,
+      "name": "Shattered Sun Offensive",
+      "methods": []
+    },
+    {
+      "id": 87,
+      "name": "Bloodsail Buccaneers",
+      "methods": []
+    },
+    {
+      "id": 730,
+      "name": "Stormpike Guard",
+      "methods": []
+    },
+    {
+      "id": 935,
+      "name": "The Sha'tar",
+      "methods": []
+    },
+    {
+      "id": 1168,
+      "name": "Guild",
+      "methods": []
+    },
+    {
+      "id": 609,
+      "name": "Cenarion Circle",
+      "methods": []
+    },
+    {
+      "id": 749,
+      "name": "Hydraxian Waterlords",
+      "methods": []
+    },
+    {
+      "id": 270,
+      "name": "Zandalar Tribe",
+      "methods": []
+    },
+    {
+      "id": 577,
+      "name": "Everlook",
+      "methods": []
+    },
+    {
+      "id": 1012,
+      "name": "Ashtongue Deathsworn",
+      "methods": []
+    },
+    {
+      "id": 1068,
+      "name": "Explorers' League",
+      "methods": []
+    },
+    {
+      "id": 946,
+      "name": "Honor Hold",
+      "methods": []
+    },
+    {
+      "id": 890,
+      "name": "Silverwing Sentinels",
+      "methods": []
+    },
+    {
+      "id": 1073,
+      "name": "The Kalu'ak",
+      "methods": []
+    },
+    {
+      "id": 930,
+      "name": "Exodar",
+      "methods": []
+    },
+    {
+      "id": 1174,
+      "name": "Wildhammer Clan",
+      "methods": []
+    },
+    {
+      "id": 1031,
+      "name": "Sha'tari Skyguard",
+      "methods": []
+    },
+    {
+      "id": 1271,
+      "name": "Order of the Cloud Serpent",
+      "methods": []
+    },
+    {
+      "id": 1156,
+      "name": "The Ashen Verdict",
+      "methods": []
+    },
+    {
+      "id": 1171,
+      "name": "Therazane",
+      "methods": []
+    },
+    {
+      "id": 1269,
+      "name": "Golden Lotus",
+      "methods": []
+    },
+    {
+      "id": 1270,
+      "name": "Shado-Pan",
+      "methods": []
+    },
+    {
+      "id": 934,
+      "name": "The Scryers",
+      "methods": []
+    },
+    {
+      "id": 970,
+      "name": "Sporeggar",
+      "methods": []
+    },
+    {
+      "id": 1015,
+      "name": "Netherwing",
+      "methods": []
+    },
+    {
+      "id": 1094,
+      "name": "The Silver Covenant",
+      "methods": []
+    },
+    {
+      "id": 1098,
+      "name": "Knights of the Ebon Blade",
+      "methods": []
+    },
+    {
+      "id": 1135,
+      "name": "The Earthen Ring",
+      "methods": []
+    },
+    {
+      "id": 369,
+      "name": "Gadgetzan",
+      "methods": []
+    },
+    {
+      "id": 932,
+      "name": "The Aldor",
+      "methods": []
+    },
+    {
+      "id": 70,
+      "name": "Syndicate",
+      "methods": []
+    },
+    {
+      "id": 1134,
+      "name": "Gilneas",
+      "methods": []
+    },
+    {
+      "id": 1358,
+      "name": "Nat Pagle",
+      "methods": []
+    },
+    {
+      "id": 1359,
+      "name": "The Black Prince",
+      "methods": []
+    },
+    {
+      "id": 1337,
+      "name": "The Klaxxi",
+      "methods": []
+    },
+    {
+      "id": 1158,
+      "name": "Guardians of Hyjal",
+      "methods": []
+    },
+    {
+      "id": 1204,
+      "name": "Avengers of Hyjal",
+      "methods": []
+    },
+    {
+      "id": 978,
+      "name": "Kurenai",
+      "methods": []
+    },
+    {
+      "id": 1345,
+      "name": "The Lorewalkers",
+      "methods": []
+    },
+    {
+      "id": 1242,
+      "name": "Pearlfin Jinyu",
+      "methods": []
+    },
+    {
+      "id": 1353,
+      "name": "Tushui Pandaren",
+      "methods": []
+    },
+    {
+      "id": 1302,
+      "name": "The Anglers",
+      "methods": []
+    },
+    {
+      "id": 576,
+      "name": "Timbermaw Hold",
+      "methods": []
+    },
+    {
+      "id": 1492,
+      "name": "Emperor Shaohao",
+      "methods": []
+    },
+    {
+      "id": 1435,
+      "name": "Shado-Pan Assault",
+      "methods": []
+    },
+    {
+      "id": 1387,
+      "name": "Kirin Tor Offensive",
+      "methods": []
+    },
+    {
+      "id": 1341,
+      "name": "The August Celestials",
+      "methods": []
+    },
+    {
+      "id": 1515,
+      "name": "Arakkoa Outcasts",
+      "methods": []
+    },
+    {
+      "id": 1682,
+      "name": "Wrynn's Vanguard",
+      "methods": []
+    },
+    {
+      "id": 1828,
+      "name": "Highmountain Tribe",
+      "methods": []
+    },
+    {
+      "id": 1847,
+      "name": "Hand of the Prophet",
+      "methods": []
+    },
+    {
+      "id": 1849,
+      "name": "Order of the Awakened",
+      "methods": []
+    },
+    {
+      "id": 1850,
+      "name": "The Saberstalkers",
+      "methods": []
+    },
+    {
+      "id": 1731,
+      "name": "Council of Exarchs",
+      "methods": []
+    },
+    {
+      "id": 1859,
+      "name": "The Nightfallen",
+      "methods": []
+    },
+    {
+      "id": 1883,
+      "name": "Dreamweavers",
+      "methods": []
+    },
+    {
+      "id": 1894,
+      "name": "The Wardens",
+      "methods": []
+    },
+    {
+      "id": 1900,
+      "name": "Court of Farondis",
+      "methods": []
+    },
+    {
+      "id": 1710,
+      "name": "Sha'tari Defense",
+      "methods": []
+    },
+    {
+      "id": 1711,
+      "name": "Steamwheedle Preservation Society",
+      "methods": []
+    },
+    {
+      "id": 1948,
+      "name": "Valarjar",
+      "methods": []
+    },
+    {
+      "id": 1975,
+      "name": "Conjurer Margoss",
+      "methods": []
+    },
+    {
+      "id": 2011,
+      "name": "Bizmo's Brawlpub (Season 3)",
+      "methods": []
+    },
+    {
+      "id": 2045,
+      "name": "Armies of Legionfall",
+      "methods": []
+    },
+    {
+      "id": 2135,
+      "name": "Chromie",
+      "methods": []
+    },
+    {
+      "id": 2162,
+      "name": "Storm's Wake",
+      "methods": []
+    },
+    {
+      "id": 2163,
+      "name": "Tortollan Seekers",
+      "methods": []
+    },
+    {
+      "id": 2165,
+      "name": "Army of the Light",
+      "methods": []
+    },
+    {
+      "id": 2160,
+      "name": "Proudmoore Admiralty",
+      "methods": []
+    },
+    {
+      "id": 2170,
+      "name": "Argussian Reach",
+      "methods": []
+    },
+    {
+      "id": 2164,
+      "name": "Champions of Azeroth",
+      "methods": []
+    },
+    {
+      "id": 2161,
+      "name": "Order of Embers",
+      "methods": []
+    },
+    {
+      "id": 349,
+      "name": "Ravenholdt",
+      "methods": []
+    },
+    {
+      "id": 2400,
+      "name": "Waveblade Ankoan",
+      "methods": []
+    },
+    {
+      "id": 2407,
+      "name": "The Ascended",
+      "methods": []
+    },
+    {
+      "id": 2410,
+      "name": "The Undying Army",
+      "methods": []
+    },
+    {
+      "id": 2413,
+      "name": "Court of Harvesters",
+      "methods": []
+    },
+    {
+      "id": 2415,
+      "name": "Rajani",
+      "methods": []
+    },
+    {
+      "id": 2478,
+      "name": "The Enlightened",
+      "methods": []
+    },
+    {
+      "id": 2503,
+      "name": "Maruuk Centaur",
+      "methods": []
+    },
+    {
+      "id": 2507,
+      "name": "Dragonscale Expedition",
+      "methods": []
+    },
+    {
+      "id": 2510,
+      "name": "Valdrakken Accord",
+      "methods": []
+    },
+    {
+      "id": 2511,
+      "name": "Iskaara Tuskarr",
+      "methods": []
+    },
+    {
+      "id": 2391,
+      "name": "Rustbolt Resistance",
+      "methods": []
+    },
+    {
+      "id": 2417,
+      "name": "Uldum Accord",
+      "methods": []
+    },
+    {
+      "id": 2432,
+      "name": "Ve'nari",
+      "methods": []
+    },
+    {
+      "id": 2465,
+      "name": "The Wild Hunt",
+      "methods": []
+    },
+    {
+      "id": 2472,
+      "name": "The Archivists' Codex",
+      "methods": []
+    },
+    {
+      "id": 2464,
+      "name": "Court of Night",
+      "methods": []
+    },
+    {
+      "id": 2470,
+      "name": "Death's Advance",
+      "methods": []
+    },
+    {
+      "id": 2517,
+      "name": "Wrathion",
+      "methods": []
+    },
+    {
+      "id": 2518,
+      "name": "Sabellian",
+      "methods": []
+    },
+    {
+      "id": 2550,
+      "name": "Cobalt Assembly",
+      "methods": []
+    },
+    {
+      "id": 2553,
+      "name": "Soridormi",
+      "methods": []
+    },
+    {
+      "id": 2524,
+      "name": "Obsidian Warders",
+      "methods": []
+    },
+    {
+      "id": 2570,
+      "name": "Hallowfall Arathi",
+      "methods": []
+    },
+    {
+      "id": 2564,
+      "name": "Loamm Niffen",
+      "methods": []
+    },
+    {
+      "id": 2605,
+      "name": "The General",
+      "methods": []
+    },
+    {
+      "id": 2600,
+      "name": "The Severed Threads",
+      "methods": []
+    },
+    {
+      "id": 2601,
+      "name": "The Weaver",
+      "methods": []
+    },
+    {
+      "id": 2653,
+      "name": "The Cartels of Undermine",
+      "methods": []
+    },
+    {
+      "id": 2593,
+      "name": "Keg Leg's Crew",
+      "methods": []
+    },
+    {
+      "id": 2669,
+      "name": "Darkfuse Solutions",
+      "methods": []
+    },
+    {
+      "id": 2671,
+      "name": "Venture Company",
+      "methods": []
+    },
+    {
+      "id": 2677,
+      "name": "Steamwheedle Cartel",
+      "methods": []
+    },
+    {
+      "id": 2640,
+      "name": "Brann Bronzebeard",
+      "methods": []
+    },
+    {
+      "id": 2607,
+      "name": "The Vizier",
+      "methods": []
     }
   ]
 }
