@@ -1,6 +1,13 @@
+// filepath: /Users/chris/Desktop/woweekly/src/views/ReputationsView.vue
 <template>
   <v-container class="reputations py-8">
-    <v-row justify="center">
+    <!-- Character Input Dialog -->
+    <CharacterInputDialog
+      v-if="showCharacterDialog"
+      @character-set="onCharacterSet"
+    />
+
+    <v-row justify="center" v-if="!showCharacterDialog">
       <v-col cols="12">
         <v-card class="mb-6" elevation="3">
           <div class="bg-overlay position-relative">
@@ -8,7 +15,7 @@
             <CacheStatusIndicator
               class="cache-status-container position-absolute"
               style="max-width: 350px; top: 10px; right: 10px"
-              cacheKey="character_reputations"
+              :cacheKey="characterCacheKey"
               cacheType="Reputation"
               :refreshHandler="refreshReputationsData"
               @refresh-complete="handleRefreshComplete"
@@ -426,18 +433,20 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, computed, watch } from 'vue'
-import { fetchReputations } from '@/services/reputationService'
+import { fetchReputations, hasCharacterInfo } from '@/services/reputationService'
 import { StorageService } from '@/services/storageService'
 import { ReputationMethodsService } from '@/services/reputationMethodsService'
 import { type Reputation } from '@/types/reputation'
 import { type EnhancedReputation } from '@/types/reputationMethods'
 import CacheStatusIndicator from '@/components/CacheStatusIndicator.vue'
+import CharacterInputDialog from '@/components/CharacterInputDialog.vue'
 import { snackbarService } from '@/services/snackbarService'
 
 // Data loading state
 const reputations = ref<EnhancedReputation[]>([])
 const loading = ref(true)
 const error = ref<string | null>(null)
+const showCharacterDialog = ref(!hasCharacterInfo())
 
 // Filter and search
 const search = ref('')
@@ -453,7 +462,10 @@ const methodCompletionTracking = ref<Record<string, boolean>>({})
 
 // Load reputations on component mount
 onMounted(() => {
-  loadReputations()
+  // Only load reputations if we already have character info
+  if (!showCharacterDialog.value) {
+    loadReputations()
+  }
 
   // Load saved UI settings
   const savedState = StorageService.loadTasksState()
@@ -476,13 +488,19 @@ onMounted(() => {
   // Load saved method completion status
   if (
     savedState?.settings &&
-    'reputationMethods' in (savedState.settings as any)
+    'reputationMethods' in (savedState.settings as Record<string, unknown>)
   ) {
     methodCompletionTracking.value = (
-      savedState.settings as any
+      savedState.settings as Record<string, any>
     ).reputationMethods.completedMethods
   }
 })
+
+// Handle character information set
+const onCharacterSet = () => {
+  showCharacterDialog.value = false
+  loadReputations()
+}
 
 // Function to load reputation data
 const loadReputations = async (forceRefresh = false) => {
@@ -516,7 +534,18 @@ const refreshReputationsData = async () => {
 const handleRefreshComplete = () => {
   // Can add any post-refresh logic here if needed
   console.log('Reputation data refresh complete')
-} // Filter reputations based on search and tier filter
+}
+
+// Generate the character-specific cache key
+const characterCacheKey = computed(() => {
+  const characterInfo = StorageService.getCharacterInfo()
+  if (!characterInfo) return 'character_reputations'
+
+  const { name, realm, region } = characterInfo
+  return `character_reputations_${region}_${realm}_${name}`
+})
+
+// Filter reputations based on search and tier filter
 const filteredReputations = computed(() => {
   let result = [...reputations.value]
 
@@ -718,15 +747,18 @@ const saveMethodCompletionStatus = () => {
   }
 
   // Use type assertion to add the reputationMethods property
-  if (!('reputationMethods' in (currentState.settings as any))) {
-    (currentState.settings as any).reputationMethods = {
+  if (!('reputationMethods' in (currentState.settings as Record<string, unknown>))) {
+    (currentState.settings as Record<string, unknown>).reputationMethods = {
       completedMethods: {}
     }
   }
 
   // Update the reputation method completion tracking
-  (currentState.settings as any).reputationMethods.completedMethods =
-    methodCompletionTracking.value
+  const settingsWithMethods = currentState.settings as Record<string, unknown>
+  if (settingsWithMethods.reputationMethods) {
+    (settingsWithMethods.reputationMethods as Record<string, unknown>).completedMethods =
+      methodCompletionTracking.value
+  }
 
   // Save the updated state
   StorageService.saveTasksState(currentState)

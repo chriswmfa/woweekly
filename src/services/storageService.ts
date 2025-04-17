@@ -6,6 +6,14 @@ import { CustomTasksStorage } from '@/types/storage'
 const ENCRYPTION_KEY = 'weekly-wow-tasks-secure-key'
 const STORAGE_KEY = 'save-state'
 const CUSTOM_TASKS_KEY = 'weekly-wow-custom-tasks'
+const CHARACTER_INFO_KEY = 'character-info'
+
+// Character info type
+interface CharacterInfo {
+  name: string
+  realm: string
+  region: string
+}
 
 /**
  * Service for encrypting and storing task progress in localStorage
@@ -121,6 +129,35 @@ export class StorageService {
    */
   static resetCustomTasks (): void {
     localStorage.removeItem(CUSTOM_TASKS_KEY)
+  }
+
+  /**
+   * Save character information to localStorage
+   * @param characterInfo The character information to save
+   */
+  static saveCharacterInfo (characterInfo: CharacterInfo): void {
+    try {
+      localStorage.setItem(CHARACTER_INFO_KEY, JSON.stringify(characterInfo))
+    } catch (error) {
+      console.error('Error saving character info:', error)
+    }
+  }
+
+  /**
+   * Get character information from localStorage
+   * @returns The character information or null if not found
+   */
+  static getCharacterInfo (): CharacterInfo | null {
+    try {
+      const characterInfo = localStorage.getItem(CHARACTER_INFO_KEY)
+      if (!characterInfo) {
+        return null
+      }
+      return JSON.parse(characterInfo) as CharacterInfo
+    } catch (error) {
+      console.error('Error loading character info:', error)
+      return null
+    }
   }
 }
 

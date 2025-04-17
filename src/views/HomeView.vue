@@ -5,16 +5,10 @@
       <v-col cols="12">
         <!-- Hero Section -->
         <v-card class="pa-5 hero-card" elevation="10">
-          <v-img
-            src="/img/bg-texture.jpg"
-            cover
-            class="align-middle"
-          >
             <div class="hero-overlay">
               <h1 class="text-h2 font-weight-bold cinzel-font">WoWeekly</h1>
               <p class="text-h6 mt-2">Track your progress across Azeroth</p>
             </div>
-          </v-img>
           <v-card-text class="py-4 text-center">
             <p class="text-body-1">Manage your weekly tasks across all World of Warcraft expansions</p>
             <v-btn
