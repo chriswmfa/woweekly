@@ -1,4 +1,3 @@
-// filepath: /Users/chris/Desktop/woweekly/src/views/ReputationsView.vue
 <template>
   <v-container class="reputations py-8">
     <!-- Character Input Dialog -->
@@ -24,12 +23,12 @@
 
             <!-- Description section -->
             <p class="description-text mt-3 mx-auto" style="max-width: 800px;">
-              Track your faction reputations, manage reputation tasks, and find ways to increase your standing.
+              Track your faction reputations and find ways to increase your standing.
               Use the filters below to focus on specific factions or hide completed ones.
-              Check off reputation tasks as you complete them to track your progress.
+              Use the toggle to the right to toggle reputation tasks.
             </p>
             <p class="description-text mt-3 mx-auto" style="max-width: 800px;">Please note that not every single possible method of gaining reputation is listed here, some obscure
-              methods may be missing however the most common ones are included.
+              methods may be missing; however, the most common ones are included. Also note that due to issues with Blizzard's API, some reputations are missing.
             </p>
           </div>
 
@@ -56,6 +55,24 @@
               <v-row>
                 <v-col cols="12">
                   <div class="d-flex align-center">
+                    <!-- Reset button for weekly/daily tasks -->
+                    <v-tooltip location="bottom">
+                      <template v-slot:activator="{ props }">
+                        <v-btn
+                          v-bind="props"
+                          variant="outlined"
+                          color="warning"
+                          size="small"
+                          prepend-icon="mdi-refresh"
+                          class="mr-3"
+                          @click="resetWeeklyAndDailyTasks"
+                        >
+                          Reset Repeatable Tasks
+                        </v-btn>
+                      </template>
+                      <span>Reset all weekly and daily reputation tasks</span>
+                    </v-tooltip>
+
                     <v-text-field
                       v-model="search"
                       label="Search Reputations"
@@ -802,6 +819,44 @@ watch(showParagon, (newValue) => {
   // Save the updated state
   StorageService.saveTasksState(currentState)
 })
+
+// Function to reset weekly and daily reputation tasks
+const resetWeeklyAndDailyTasks = () => {
+  if (!reputations.value || reputations.value.length === 0) return
+
+  // Create a mapping of method IDs to their types
+  const methodTypes: Record<string, string> = {}
+
+  // Collect all method types from all reputations
+  reputations.value.forEach(rep => {
+    if (rep.methods) {
+      rep.methods.forEach(method => {
+        methodTypes[method.id] = method.type
+      })
+    }
+  })
+
+  // Create a new object to hold the updated completion status
+  const updatedCompletions: Record<string, boolean> = { ...methodCompletionTracking.value }
+
+  // Reset only weekly and daily tasks
+  Object.keys(updatedCompletions).forEach(methodId => {
+    const methodType = methodTypes[methodId]
+    if (methodType === 'daily' || methodType === 'weekly' || methodType === 'repeatable') {
+      updatedCompletions[methodId] = false
+    }
+    // One-time tasks remain unchanged
+  })
+
+  // Update the tracking object
+  methodCompletionTracking.value = updatedCompletions
+
+  // Save to localStorage
+  saveMethodCompletionStatus()
+
+  // Show success message
+  snackbarService.showSuccess('Weekly and daily reputation tasks have been reset!')
+}
 </script>
 
 <style scoped>
