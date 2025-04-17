@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+ 
 import axios from 'axios'
 import { Reputation } from '@/types/reputation'
 import { CacheService } from '@/services/cacheService'

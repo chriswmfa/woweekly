@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, defineProps, defineEmits } from 'vue'
+import { ref, computed, onMounted, onUnmounted, defineProps } from 'vue'
 import { cacheState } from '@/services/cacheService'
 
 const props = defineProps<{
@@ -50,9 +50,6 @@ const props = defineProps<{
   refreshHandler:() => Promise<void>
 }>()
 
-const emit = defineEmits<{(e: 'refresh-complete'): void }>()
-
-const isRefreshing = ref(false)
 const timeRemaining = ref(0)
 const updateInterval = ref<number | null>(null)
 

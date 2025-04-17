@@ -166,7 +166,8 @@ export const getAllTaskTypes = (): string[] => {
 // Helper function to get primary task types (those with icons)
 export const getPrimaryTaskTypes = (): string[] => {
   return Object.entries(TaskTypeData)
-    .filter(([_key, info]) => !!info.icon)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    .filter(([_, info]) => !!info.icon)
     .map(([key]) => key)
 }
 
@@ -202,9 +203,6 @@ export interface Task {
   tags: string[]; // Keep as string[] for backward compatibility
   completed: boolean;
   completable?: boolean; // Whether this task can be completed with a checkbox (defaults to true)
-  isCountable?: boolean; // Whether this task has multiple steps to complete (e.g. "Complete 3 Delves")
-  currentCount?: number; // Current progress (e.g. 1, 2)
-  targetCount?: number; // Target count needed to complete the task (e.g. 3)
   notes?: string; // User's personal notes for this task
   wowheadData?: WowheadData; // Data for linking to Wowhead
 }
@@ -223,7 +221,6 @@ export interface TasksData {
 // Define the structure of the saved task state
 export interface SavedTaskState {
   completed: boolean;
-  currentCount?: number;
   notes?: string; // User's notes for this task
   deleted?: boolean; // Flag to indicate if this task has been deleted/hidden
 }
@@ -243,7 +240,7 @@ export interface UISettings {
 
 // Define the structure of saved state
 export interface SavedTasksState {
-  [taskId: string]: SavedTaskState | any; // Using any for now to allow settings with a different type
+  [taskId: string]: SavedTaskState | unknown; // Using any for now to allow settings with a different type
   settings?: {
     tasks?: {
       [taskId: string]: SavedTaskState;

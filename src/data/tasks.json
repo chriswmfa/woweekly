@@ -22,9 +22,6 @@
           "type": "delve",
           "tags": ["cache"],
           "completed": false,
-          "isCountable": true,
-          "currentCount": 0,
-          "targetCount": 3,
           "wowheadData": {
             "type": "quest",
             "id": 78954

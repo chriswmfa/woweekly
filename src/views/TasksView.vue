@@ -140,7 +140,6 @@ const updateTasks = (task: Task) => {
     store.dispatch('updateTask', {
       taskId: task.id,
       completed: task.completed,
-      currentCount: task.currentCount,
       notes: task.notes
     })
   } else {
@@ -185,10 +184,6 @@ const isTaskCompleted = (task: Task) => {
   // Non-completable tasks should never be considered as completed for progress calculation
   if (task.completable === false) {
     return false
-  }
-
-  if (task.isCountable && task.currentCount !== undefined && task.targetCount !== undefined) {
-    return task.currentCount >= task.targetCount
   }
   return task.completed
 }

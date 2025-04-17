@@ -60,22 +60,21 @@ export default createStore<State>({
       // Filter out deleted tasks and apply saved progress to each remaining task
       return tasks
         .filter((task: Task) => {
-          const savedTask = state.savedProgress?.[task.id]
+          const savedTask = state.savedProgress?.[task.id] as SavedTasksState | undefined;
           // Skip tasks that are marked as deleted
-          return !savedTask?.deleted
+          return !savedTask?.deleted;
         })
         .map((task: Task) => {
-          const savedTask = state.savedProgress?.[task.id]
+          const savedTask = state.savedProgress?.[task.id] as SavedTasksState | undefined;
           if (!savedTask) {
-            return task
+            return task;
           }
 
           return {
             ...task,
             completed: savedTask.completed,
-            currentCount: task.isCountable ? (savedTask.currentCount || 0) : undefined,
             notes: savedTask.notes || ''
-          }
+          };
         })
     }
   },
@@ -91,8 +90,8 @@ export default createStore<State>({
     },
 
     // Update a task's completion state
-    UPDATE_TASK (state, payload: { taskId: string, completed: boolean, currentCount?: number, notes?: string }) {
-      const { taskId, completed, currentCount, notes } = payload
+    UPDATE_TASK (state, payload: { taskId: string, completed: boolean, notes?: string }) {
+      const { taskId, completed, notes } = payload
 
       if (!state.savedProgress) {
         state.savedProgress = {}
@@ -101,7 +100,6 @@ export default createStore<State>({
       // Create or update the task state
       state.savedProgress[taskId] = {
         completed,
-        ...(currentCount !== undefined ? { currentCount } : {}),
         ...(notes !== undefined ? { notes } : {})
       }
 
@@ -145,7 +143,6 @@ export default createStore<State>({
 
         state.savedProgress[task.id] = {
           completed: task.completed || false,
-          currentCount: task.isCountable ? (task.currentCount || 0) : undefined,
           notes: task.notes || ''
         }
 
@@ -237,7 +234,7 @@ export default createStore<State>({
     },
 
     // Update a task
-    updateTask ({ commit }, payload: { taskId: string, completed: boolean, currentCount?: number, notes?: string }) {
+    updateTask ({ commit }, payload: { taskId: string, completed: boolean, notes?: string }) {
       commit('UPDATE_TASK', payload)
     },
 

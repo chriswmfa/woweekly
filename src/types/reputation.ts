@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+ 
 // Types for reputation data from Blizzard API
 export interface Reputation {
   faction: {

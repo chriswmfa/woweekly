@@ -5,19 +5,13 @@
     class="mb-1 position-relative"
   >
     <template v-slot:prepend>
-      <!-- Infimport { computed, defineProps, defineEmits, ref, watch } from 'vue'
-import type { PropType } from 'vue'
-import type { Task } from '@/types/tasks'
-import { TagData } from '@/types/tasks'
-import { snackbarService } from '@/services/snackbarService'
-import { ReputationMethodsService } from '@/services/reputationMethodsService'
-import { ReputationMethodsService } from '@/services/reputationMethodsService'n for non-completable tasks -->
+      <!-- Info for non-completable tasks -->
       <div v-if="task.completable === false" class="d-flex align-center mr-2 ml-1">
         <v-icon size="small" color="grey">mdi-information-outline</v-icon>
       </div>
-      <!-- Regular checkbox for non-countable but completable tasks -->
+      <!-- Regular checkbox for completable tasks -->
       <v-checkbox
-        v-else-if="!task.isCountable"
+        v-else
         density="compact"
         hide-details
         :model-value="task.completed"
@@ -25,33 +19,6 @@ import { ReputationMethodsService } from '@/services/reputationMethodsService'n 
         color="success"
         class="mr-2"
       ></v-checkbox>
-
-      <!-- Counter UI for countable tasks -->
-      <div v-else class="d-flex align-center bg-primary-lighten-5 rounded px-1">
-        <v-btn
-          density="compact"
-          size="small"
-          icon="mdi-minus"
-          variant="text"
-          color="primary"
-          @click="decrementCount"
-          :disabled="task.currentCount === 0"
-        ></v-btn>
-        <div class="text-center mx-2">
-          <span :class="{ 'text-success': isCompleted, 'font-weight-medium': true }">
-            {{ task.currentCount }}/{{ task.targetCount }}
-          </span>
-        </div>
-        <v-btn
-          density="compact"
-          size="small"
-          icon="mdi-plus"
-          variant="text"
-          color="primary"
-          @click="incrementCount"
-          :disabled="isCompleted"
-        ></v-btn>
-      </div>
     </template>
 
     <div class="flex-grow-1">
@@ -178,9 +145,9 @@ import { ReputationMethodsService } from '@/services/reputationMethodsService'n 
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps, defineEmits, ref, watch } from 'vue'
+import { computed, defineProps, defineEmits, ref } from 'vue'
 import type { PropType } from 'vue'
-import type { Task } from '@/types/tasks'
+import type { Task, WowheadData } from '@/types/tasks'
 import { TagData } from '@/types/tasks'
 import { snackbarService } from '@/services/snackbarService'
 import { ReputationMethodsService } from '@/services/reputationMethodsService'
@@ -199,20 +166,13 @@ const showNotesDialog = ref(false)
 const taskNotes = ref(props.task.notes || '')
 const hasNotes = computed(() => Boolean(props.task.notes?.trim()))
 
-// Check if the task is completed
+// Delete dialog state
+const showDeleteDialog = ref(false)
+
+// Check if the task is completed - simplified without countable logic
 const isCompleted = computed(() => {
-  if (props.task.isCountable && props.task.currentCount !== undefined && props.task.targetCount !== undefined) {
-    return props.task.currentCount >= props.task.targetCount
-  }
   return props.task.completed
 })
-
-// Watch for changes in completion status to show snackbar message
-watch(isCompleted, (newValue, oldValue) => {
-  if (newValue === true && oldValue === false) {
-    snackbarService.showSuccess() // Show random praise message
-  }
-}, { immediate: true })
 
 // Helper functions for task updates
 const updateCompleted = (value: boolean) => {
@@ -227,44 +187,6 @@ const updateCompleted = (value: boolean) => {
   }
 
   emit('update', updatedTask)
-}
-
-const incrementCount = () => {
-  if (props.task.isCountable && props.task.currentCount !== undefined && props.task.targetCount !== undefined) {
-    if (props.task.currentCount < props.task.targetCount) {
-      const newCount = props.task.currentCount + 1
-      const newCompleted = newCount >= props.task.targetCount
-      const wasCompletedBefore = props.task.currentCount >= props.task.targetCount
-
-      const updatedTask = {
-        ...props.task,
-        currentCount: newCount,
-        completed: newCompleted
-      }
-
-      // Show snackbar message if task is now completed (but wasn't before)
-      if (newCompleted && !wasCompletedBefore) {
-        snackbarService.showSuccess()
-      }
-
-      emit('update', updatedTask)
-    }
-  }
-}
-
-const decrementCount = () => {
-  if (props.task.isCountable && props.task.currentCount !== undefined && props.task.targetCount !== undefined) {
-    if (props.task.currentCount > 0) {
-      const newCount = props.task.currentCount - 1
-      const newCompleted = newCount >= props.task.targetCount
-
-      emit('update', {
-        ...props.task,
-        currentCount: newCount,
-        completed: newCompleted
-      })
-    }
-  }
 }
 
 // Notes handling functions
@@ -300,6 +222,17 @@ const clearNotes = () => {
   showNotesDialog.value = false
 }
 
+// Delete task functionality
+const confirmDelete = () => {
+  showDeleteDialog.value = true
+}
+
+const deleteTask = () => {
+  emit('delete:task', props.task)
+  showDeleteDialog.value = false
+  snackbarService.showInfo('Task deleted')
+}
+
 // Get tag data from the central TagData mapping
 const getTagData = (tag: string) => {
   // Check if this is a reputation tag with a faction ID (format: "reputation:ID")
@@ -322,99 +255,39 @@ const getTagData = (tag: string) => {
     }
   }
 
-  // For other tags or if faction not found, use the default mapping
+  // Otherwise look up from TagData
   return TagData[tag] || { label: tag, color: 'grey' }
 }
 
-// Add delete dialog state
-const showDeleteDialog = ref(false)
+// Generate Wowhead URL based on the wowheadData object
+const getWowheadUrl = (wowheadData: WowheadData) => {
+  const baseUrl = 'https://www.wowhead.com/'
 
-// Open delete confirmation dialog
-const confirmDelete = () => {
-  showDeleteDialog.value = true
-}
-
-// Delete the task
-const deleteTask = () => {
-  emit('delete:task', props.task.id)
-  showDeleteDialog.value = false
-  snackbarService.showInfo('Task deleted')
-}
-
-// Get the appropriate Wowhead URL based on the data type
-const getWowheadUrl = (data: { type: string; id: number }) => {
-  switch (data.type) {
+  switch (wowheadData.type) {
     case 'quest':
-      return `https://www.wowhead.com/quest=${data.id}`
-    case 'npc':
-      return `https://www.wowhead.com/npc=${data.id}`
-    case 'zone':
-      return `https://www.wowhead.com/zone=${data.id}`
+      return `${baseUrl}quest=${wowheadData.id}`
     case 'item':
-      return `https://www.wowhead.com/item=${data.id}`
-    case 'spell':
-      return `https://www.wowhead.com/spell=${data.id}`
+      return `${baseUrl}item=${wowheadData.id}`
+    case 'npc':
+      return `${baseUrl}npc=${wowheadData.id}`
     case 'achievement':
-      return `https://www.wowhead.com/achievement=${data.id}`
+      return `${baseUrl}achievement=${wowheadData.id}`
+    case 'zone':
+      return `${baseUrl}zone=${wowheadData.id}`
     default:
-      return 'https://www.wowhead.com/'
+      return `${baseUrl}${wowheadData.type}=${wowheadData.id}`
   }
 }
 </script>
 
 <style scoped>
-.note-preview {
-  max-width: 180px;
-  color: rgb(var(--v-theme-info));
-  font-style: italic;
+.task-link {
+  text-decoration: none;
+  color: inherit;
 }
 
-.note-container {
-  background-color: rgba(var(--v-theme-info), 0.1);
-  padding: 2px 6px;
-  border-radius: 4px;
-  margin-top: 4px;
-}
-
-.notes-button {
-  min-width: 36px;
-}
-
-.has-notes-button {
-  box-shadow: 0 0 0 2px rgba(var(--v-theme-info), 0.2);
-}
-
-.position-relative {
-  position: relative;
-}
-
-.notes-badge {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  background-color: rgb(var(--v-theme-info));
-  border-radius: 50%;
-  width: 22px;
-  height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-.notes-badge i {
-  color: white !important;
-  font-size: 14px !important;
-}
-
-.notes-dot {
-  width: 6px;
-  height: 6px;
-  background-color: rgb(var(--v-theme-info));
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 3px;
+.task-link:hover {
+  text-decoration: underline;
 }
 
 .tags-container {
@@ -422,32 +295,12 @@ const getWowheadUrl = (data: { type: string; id: number }) => {
   flex-wrap: wrap;
 }
 
-.tags-container .v-chip {
-  font-size: 0.75rem;
-  height: 20px;
-  line-height: 20px;
-}
-
-.task-link {
-  color: #4F9DFF;
-  text-decoration: none;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  transition: color 0.2s;
-}
-
-.task-link:hover {
-  color: #7CB5FF;
-  text-decoration: underline;
-}
-
-.task-link .v-icon {
-  opacity: 0.7;
+.delete-btn {
+  opacity: 0.6;
   transition: opacity 0.2s;
 }
 
-.task-link:hover .v-icon {
+.v-list-item:hover .delete-btn {
   opacity: 1;
 }
 </style>

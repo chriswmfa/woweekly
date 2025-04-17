@@ -491,8 +491,10 @@ onMounted(() => {
     'reputationMethods' in (savedState.settings as Record<string, unknown>)
   ) {
     methodCompletionTracking.value = (
-      savedState.settings as Record<string, any>
-    ).reputationMethods.completedMethods
+      (savedState.settings as Record<string, unknown>).reputationMethods as {
+        completedMethods: Record<string, boolean>
+      }
+    ).completedMethods
   }
 })
 
@@ -580,17 +582,6 @@ const filteredReputations = computed(() => {
 
   // Sort by name
   return result.sort((a, b) => a.faction.name.localeCompare(b.faction.name))
-})
-
-// Get reputation stats summary counts
-const reputationStats = computed(() => {
-  if (reputations.value.length === 0) return { exalted: 0, inProgress: 0, total: 0 }
-
-  const exaltedCount = reputations.value.filter(rep => isExalted(rep)).length
-  const total = reputations.value.length
-  const inProgress = total - exaltedCount
-
-  return { exalted: exaltedCount, inProgress, total }
 })
 
 // Helper function to get standing color based on tier

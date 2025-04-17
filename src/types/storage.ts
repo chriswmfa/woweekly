@@ -33,6 +33,7 @@ export interface SavedTaskState {
   completed: boolean
   count?: number
   lastCompleted?: number
+  deleted?: boolean
 }
 
 /**

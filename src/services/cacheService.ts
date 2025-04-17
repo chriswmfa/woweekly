@@ -121,6 +121,7 @@ export class CacheService {
       const cacheItem = JSON.parse(cacheJson) as CachedItem<unknown>
       return cacheItem.expiry > Date.now()
     } catch (error) {
+      console.error(error)
       return false
     }
   }
@@ -181,6 +182,7 @@ export class CacheService {
 
       return Math.max(0, cacheItem.expiry - now)
     } catch (error) {
+      console.error(error)
       return 0
     }
   }

@@ -9,7 +9,7 @@
           "name": "Azerite for the Alliance",
           "description": "Assist the Alliance by collecting Azerite on Island Expeditions.",
           "type": "weekly",
-          "reputation": "1500 reputation",
+          "reputation": "1500 Reputation",
           "wowheadLink": "quest=53436"
         },
         {
@@ -17,7 +17,7 @@
           "name": "World Quests",
           "description": "Complete 7th Legion world quests in Kul Tiras.",
           "type": "daily",
-          "reputation": "mixed reputation",
+          "reputation": "Mixed Reputation",
           "wowheadLink": "faction=2159"
         },
         {
@@ -25,7 +25,7 @@
           "name": "War Campaign",
           "description": "Complete the War Campaign quests in Kul Tiras.",
           "type": "One Time",
-          "reputation": "mixed reputation",
+          "reputation": "Mixed Reputation",
           "wowheadLink": "achievement=12510"
         },
         {
@@ -33,7 +33,7 @@
           "name": "Garrison Missions",
           "description": "Complete available Garrison missions that reward 7th Legion reputation.",
           "type": "daily",
-          "reputation": "mixed reputation"
+          "reputation": "Mixed Reputation"
         }
       ]
     },
@@ -113,7 +113,7 @@
           "name": "Completing World Quests in Undermine",
           "description": "After picking Bilgewater Cartel as your weekly cartel, complete world quests in Undermine. ",
           "type": "unlimited",
-          "reputation": "50 reputation per world quest; 200 Cartels of Undermine for the special assignment",
+          "reputation": "50 Reputation per world quest; 200 Cartels of Undermine for the special assignment",
           "completable": true
         },
         {
@@ -121,7 +121,7 @@
           "name": "Completing Weekly Quests in Undermine",
           "description": "Complete weekly quests such as Many Jobs, Handle It!, Urge to Surge, and Reduce, Reuse, Resell.",
           "type": "weekly",
-          "reputation": "1000 reputation per weekly quest.",
+          "reputation": "1000 Reputation per weekly quest.",
           "completable": true
         },
         {
@@ -129,7 +129,7 @@
           "name": "Killing Rare Mobs in Undermine",
           "description": "Defeat rare mobs in Undermine for daily reputation.",
           "type": "repeatable",
-          "reputation": "20/50/100 reputation per rare kill (based on rarity)",
+          "reputation": "20/50/100 Reputation per rare kill (based on rarity)",
           "completable": false
         },
         {
@@ -145,7 +145,7 @@
           "name": "Completing Side Gig Quests",
           "description": "Pick up Side Gig quests at Slam Central Station.",
           "type": "daily",
-          "reputation": "50 reputation per Side Gig quest",
+          "reputation": "50 Reputation per Side Gig quest",
           "completable": true
         }
       ]
@@ -159,7 +159,7 @@
           "name": "Completing World Quests in Undermine",
           "description": "After picking Blackwater Cartel as your weekly cartel, complete world quests in Undermine. ",
           "type": "unlimited",
-          "reputation": "50 reputation per world quest; 200 reputation for the special assignment",
+          "reputation": "50 Reputation per world quest; 200 Reputation for the special assignment",
           "completable": true
         },
         {
@@ -167,7 +167,7 @@
           "name": "Completing Weekly Quests in Undermine",
           "description": "Complete weekly quests such as Many Jobs, Handle It!, Urge to Surge, and Reduce, Reuse, Resell.",
           "type": "weekly",
-          "reputation": "1000 reputation per weekly quest.",
+          "reputation": "1000 Reputation per weekly quest.",
           "completable": true
         },
         {
@@ -183,7 +183,7 @@
           "name": "Completing Questlines in Undermine",
           "description": "Complete storyline questlines in Undermine",
           "type": "one time",
-          "reputation": "2500 reputation per chapter; 100–200 per side quest",
+          "reputation": "2500 Reputation per chapter; 100–200 per side quest",
           "completable": true
         },
         {
@@ -191,7 +191,7 @@
           "name": "Completing Side Gig Quests",
           "description": "Pick up Side Gig quests at Slam Central Station.",
           "type": "daily",
-          "reputation": "50 reputation per Side Gig quest",
+          "reputation": "50 Reputation per Side Gig quest",
           "completable": true
         }
       ]
@@ -205,7 +205,7 @@
           "name": "Dungeon Running",
           "description": "Equip the faction tabard (once friendly) and run WOTLK dungeons.",
           "type": "unlimited",
-          "reputation": "Mixed reputation per run.",
+          "reputation": "Mixed Reputation per run.",
           "completable": false
         },
         {
@@ -232,7 +232,7 @@
           "name": "Dungeon Running",
           "description": "Equip the faction tabard and run any dungeon.",
           "type": "unlimited",
-          "reputation": "Mixed reputation per run.",
+          "reputation": "Mixed Reputation per run.",
           "completable": false
         },
         {
@@ -240,7 +240,7 @@
           "name": "Quest hubs",
           "description": "Quests are available in Blasted Lands, Dun Morogh, Loch Modan, Stonetalon Mountains, Tanaris, Thousand Needles.",
           "type": "one time",
-          "reputation": "mixed reputation",
+          "reputation": "Mixed Reputation",
           "completable": true
         }
       ]
@@ -254,7 +254,7 @@
           "name": "Dungeon Running",
           "description": "Equip the faction tabard and run any dungeon.",
           "type": "unlimited",
-          "reputation": "Mixed reputation per run.",
+          "reputation": "Mixed Reputation per run.",
           "completable": false
         },
         {
@@ -262,7 +262,7 @@
           "name": "Quest hubs",
           "description": "Quests are available in Ashenvale, Darkshore, Feralas, Stonetalon Mountains, Teldrassil, Thousand Needles. ",
           "type": "one time",
-          "reputation": "mixed reputation",
+          "reputation": "mixed Reputation",
           "completable": true
         }
       ]
@@ -281,7 +281,7 @@
           "name": "Liberation of Undermine",
           "description": "Kill raid bosses in the Liberation of Undermine raid.",
           "type": "weekly",
-          "reputation": "Guaranteed 5000 reputation per week",
+          "reputation": "Guaranteed 5000 Reputation per week",
           "completable": false
         }
       ]
@@ -294,7 +294,7 @@
         "name": "Arathi Basin",
         "description": "50 per 150 resources collected and 500 for a win.",
         "type": "unlimited",
-        "reputation": "Minimum 500 reputation",
+        "reputation": "Minimum 500 Reputation",
         "completable": false
       }]
     },

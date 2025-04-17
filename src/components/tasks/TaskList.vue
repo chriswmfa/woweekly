@@ -149,15 +149,11 @@ const newTask = ref({
   subtitle: '',
   type: '',
   tags: [] as (string | { text: string, value: string })[],
-  completed: false,
-  isCountable: false,
-  currentCount: 0,
-  targetCount: 1
+  completed: false
 })
 
 const taskTypes = [
-  { text: 'Checkbox', value: 'checkbox' },
-  { text: 'Countable', value: 'countable' }
+  { text: 'Checkbox', value: 'checkbox' }
 ]
 
 // Generate available tags from TaskTypeData
@@ -182,10 +178,7 @@ const resetNewTask = () => {
     subtitle: '',
     type: '',
     tags: [],
-    completed: false,
-    isCountable: false,
-    currentCount: 0,
-    targetCount: 1
+    completed: false
   }
 }
 
@@ -205,9 +198,6 @@ const addTask = () => {
     subtitle: newTask.value.subtitle || '',
     type: primaryTag,
     completed: false,
-    isCountable: newTask.value.type === 'countable',
-    currentCount: newTask.value.type === 'countable' ? 0 : undefined,
-    targetCount: newTask.value.type === 'countable' ? 1 : undefined,
     tags: newTask.value.tags.map(tag => {
       if (typeof tag === 'object' && 'value' in tag) {
         return tag.value
