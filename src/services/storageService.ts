@@ -159,6 +159,10 @@ export class StorageService {
       return null
     }
   }
+
+  static clearAllData (): void {
+    localStorage.clear();
+  }
 }
 
 export default StorageService
