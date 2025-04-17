@@ -66,8 +66,7 @@ const miniVariant = ref(window.innerWidth < 1600 && window.innerWidth >= 1280)
 const menuItems = ref([
   { title: 'Home', path: '/', icon: 'mdi-home', color: 'alliance' },
   { title: 'Tasks', path: '/tasks', icon: 'mdi-checkbox-marked-circle-outline', color: 'primary' },
-  { title: 'Reputations', path: '/reputations', icon: 'mdi-shield-star', color: 'purple' },
-  { title: 'About', path: '/about', icon: 'mdi-information', color: 'secondary' }
+  { title: 'Reputations', path: '/reputations', icon: 'mdi-shield-star', color: 'purple' }
 ])
 
 // Title for the banner

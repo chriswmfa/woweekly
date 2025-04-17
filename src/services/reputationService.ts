@@ -103,6 +103,8 @@ export async function fetchReputations (forceRefresh = false): Promise<Reputatio
     // Extract reputations from response
     const reputations = response.data.reputations
 
+    console.log(reputations)
+
     // Store in cache (1 hour default expiry)
     if (reputations) {
       CacheService.setCache(REPUTATIONS_CACHE_KEY, reputations)
