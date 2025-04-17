@@ -273,6 +273,20 @@
       "methods": []
     },
     {
+      "id": 2685,
+      "name": "Gallagio Loyalty Rewards Club",
+      "methods": [
+        {
+          "id": "gallagio_method_1",
+          "name": "Liberation of Undermine",
+          "description": "Kill raid bosses in the Liberation of Undermine raid.",
+          "type": "weekly",
+          "reputation": "Guaranteed 5000 reputation per week",
+          "completable": false
+        }
+      ]
+    },
+    {
       "id": 509,
       "name": "The League of Arathor",
       "methods": [{
@@ -867,6 +881,16 @@
     {
       "id": 2570,
       "name": "Hallowfall Arathi",
+      "methods": []
+    },
+    {
+      "id": 2590,
+      "name": "Council of Dornogal",
+      "methods": []
+    },
+    {
+      "id": 2594,
+      "name": "The Assembly of the Deeps",
       "methods": []
     },
     {

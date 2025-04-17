@@ -8,7 +8,7 @@
           "name": "Liberation of Undermine",
           "subtitle": "Complete the raid on your preferred difficulty.",
           "type": "raid",
-          "tags": ["reputation", "loot"],
+          "tags": ["reputation:2685", "loot"],
           "completed": false,
           "wowheadData": {
             "type": "zone",
@@ -98,6 +98,32 @@
           "wowheadData": {
             "type": "quest",
             "id": 84215
+          }
+        },
+        {
+          "id": "tww_weekly_9",
+          "name": "Theater Troupe",
+          "subtitle": "Complete the Theater Troupe weekly quest",
+          "type": "quest",
+          "tags": ["reputation:2590", "cache"],
+          "icon": "mdi-book-open-variant",
+          "completed": false,
+          "wowheadData": {
+            "type": "quest",
+            "id": 83240
+          }
+        },
+        {
+          "id": "tww_weekly_10",
+          "name": "Awakening the Machine",
+          "subtitle": "Complete the Awakening the Machine weekly quest in the Ringing Deeps",
+          "type": "quest",
+          "tags": ["reputation:2594", "cache"],
+          "icon": "mdi-book-open-variant",
+          "completed": false,
+          "wowheadData": {
+            "type": "zone",
+            "id": 15133
           }
         }
       ]

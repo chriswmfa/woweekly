@@ -5,7 +5,13 @@
     class="mb-1 position-relative"
   >
     <template v-slot:prepend>
-      <!-- Info icon for non-completable tasks -->
+      <!-- Infimport { computed, defineProps, defineEmits, ref, watch } from 'vue'
+import type { PropType } from 'vue'
+import type { Task } from '@/types/tasks'
+import { TagData } from '@/types/tasks'
+import { snackbarService } from '@/services/snackbarService'
+import { ReputationMethodsService } from '@/services/reputationMethodsService'
+import { ReputationMethodsService } from '@/services/reputationMethodsService'n for non-completable tasks -->
       <div v-if="task.completable === false" class="d-flex align-center mr-2 ml-1">
         <v-icon size="small" color="grey">mdi-information-outline</v-icon>
       </div>
@@ -177,6 +183,7 @@ import type { PropType } from 'vue'
 import type { Task } from '@/types/tasks'
 import { TagData } from '@/types/tasks'
 import { snackbarService } from '@/services/snackbarService'
+import { ReputationMethodsService } from '@/services/reputationMethodsService'
 
 const props = defineProps({
   task: {
@@ -295,6 +302,27 @@ const clearNotes = () => {
 
 // Get tag data from the central TagData mapping
 const getTagData = (tag: string) => {
+  // Check if this is a reputation tag with a faction ID (format: "reputation:ID")
+  if (tag.startsWith('reputation:')) {
+    // Extract the faction ID from the tag
+    const factionId = parseInt(tag.split(':')[1])
+
+    // Get all factions from our reputations.json via the ReputationMethodsService
+    const factions = ReputationMethodsService.getAllReputationMethods()
+
+    // Find the faction with the matching ID
+    const faction = factions.find(f => f.id === factionId)
+
+    if (faction) {
+      // Return formatted tag data with the faction name
+      return {
+        label: `Rep: ${faction.name}`,
+        color: 'blue' // Keep the same color as regular reputation tags
+      }
+    }
+  }
+
+  // For other tags or if faction not found, use the default mapping
   return TagData[tag] || { label: tag, color: 'grey' }
 }
 

@@ -79,16 +79,36 @@
       <v-divider class="border-opacity-15"></v-divider>
       <v-card-text>
         <v-list bg-color="transparent">
-          <task-item
-            v-for="task in filteredTasks"
-            :key="task.id"
-            :task="task"
-            @update="updateTask($event)"
-            @delete:task="deleteTask($event)"
-          />
-          <v-list-item v-if="filteredTasks.length === 0">
-            <v-list-item-title class="text-center text-grey">No tasks match your filters</v-list-item-title>
-          </v-list-item>
+          <template v-if="tasksByType.length === 0">
+            <v-list-item>
+              <v-list-item-title class="text-center text-grey">No tasks match your filters</v-list-item-title>
+            </v-list-item>
+          </template>
+
+          <template v-for="(group, index) in tasksByType" :key="group.type">
+            <!-- Task Type Header -->
+            <v-list-subheader class="d-flex align-center px-1">
+              <v-icon size="small" :color="getTaskTypeColor(group.type)" class="mr-2">
+                {{ getTaskTypeIcon(group.type) }}
+              </v-icon>
+              <span class="text-subtitle-2 font-weight-medium">{{ formatTaskType(group.type) }}</span>
+            </v-list-subheader>
+
+            <!-- Divider -->
+            <v-divider class="mx-2"></v-divider>
+
+            <!-- Tasks for this type -->
+            <task-item
+              v-for="task in group.tasks"
+              :key="task.id"
+              :task="task"
+              @update="$emit('update:tasks', $event)"
+              @delete:task="$emit('delete:task', $event)"
+            />
+
+            <!-- Add spacing between groups except after the last one -->
+            <div v-if="index < tasksByType.length - 1" class="mt-4"></div>
+          </template>
         </v-list>
       </v-card-text>
     </v-card>
@@ -101,7 +121,7 @@ import { v4 as uuidv4 } from 'uuid'
 import type { PropType } from 'vue'
 import type { Task } from '@/types/tasks'
 import TaskItem from './TaskItem.vue'
-import { TaskTag } from '@/types/tasks'
+import { getTaskTypeIcon, getTaskTypeColor, TaskTypeData } from '@/types/tasks'
 import { snackbarService } from '@/services/snackbarService'
 
 const props = defineProps({
@@ -128,7 +148,7 @@ const newTask = ref({
   title: '',
   subtitle: '',
   type: '',
-  tags: [] as string[],
+  tags: [] as (string | { text: string, value: string })[],
   completed: false,
   isCountable: false,
   currentCount: 0,
@@ -140,8 +160,9 @@ const taskTypes = [
   { text: 'Countable', value: 'countable' }
 ]
 
-const availableTags = Object.entries(TaskTag).map(([key, value]) => ({
-  text: value,
+// Generate available tags from TaskTypeData
+const availableTags = Object.entries(TaskTypeData).map(([key, value]) => ({
+  text: value.name,
   value: key
 }))
 
@@ -173,9 +194,10 @@ const addTask = () => {
     return
   }
 
-  const primaryTag = typeof newTask.value.tags[0] === 'object'
-    ? newTask.value.tags[0].value
-    : newTask.value.tags[0]
+  const firstTag = newTask.value.tags[0]
+  const primaryTag = typeof firstTag === 'object' && 'value' in firstTag
+    ? firstTag.value
+    : firstTag as string
 
   const taskToAdd: Task = {
     id: uuidv4(),
@@ -186,7 +208,12 @@ const addTask = () => {
     isCountable: newTask.value.type === 'countable',
     currentCount: newTask.value.type === 'countable' ? 0 : undefined,
     targetCount: newTask.value.type === 'countable' ? 1 : undefined,
-    tags: newTask.value.tags.map(tag => typeof tag === 'object' ? tag.value : tag)
+    tags: newTask.value.tags.map(tag => {
+      if (typeof tag === 'object' && 'value' in tag) {
+        return tag.value
+      }
+      return tag as string
+    })
   }
 
   emit('update:tasks', taskToAdd)
@@ -196,16 +223,41 @@ const addTask = () => {
   closeAddTaskDialog()
 }
 
+// Filter tasks first
 const filteredTasks = computed(() => {
   return props.tasks.filter(task => props.enabledTaskTypes.includes(task.type))
 })
 
-const updateTask = (updatedTask: Task) => {
-  emit('update:tasks', updatedTask)
-}
+// Group tasks by type
+const tasksByType = computed(() => {
+  const groupedTasks: { type: string; tasks: Task[] }[] = []
 
-const deleteTask = (taskId: string) => {
-  emit('delete:task', taskId)
+  // First group tasks by type
+  const tasksByTypeMap = new Map<string, Task[]>()
+
+  filteredTasks.value.forEach(task => {
+    if (!tasksByTypeMap.has(task.type)) {
+      tasksByTypeMap.set(task.type, [])
+    }
+    tasksByTypeMap.get(task.type)?.push(task)
+  })
+
+  // Convert map to array and sort by type
+  Array.from(tasksByTypeMap.entries()).forEach(([type, tasks]) => {
+    groupedTasks.push({ type, tasks })
+  })
+
+  // Sort groups by type name alphabetically
+  return groupedTasks.sort((a, b) => {
+    const nameA = TaskTypeData[a.type]?.name || a.type
+    const nameB = TaskTypeData[b.type]?.name || b.type
+    return nameA.localeCompare(nameB)
+  })
+})
+
+// Format task type for display
+const formatTaskType = (type: string): string => {
+  return TaskTypeData[type]?.name || type.charAt(0).toUpperCase() + type.slice(1)
 }
 </script>
 
